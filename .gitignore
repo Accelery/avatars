@@ -6,3 +6,5 @@ node_modules/
 
 # Firebase 
 .firebase/
+firebase-debug.log
+.firebaserc
