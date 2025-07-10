@@ -1,0 +1,31 @@
+{
+  "name": "functions",
+  "scripts": {
+    "clean": "rimraf lib",
+    "prebuild": "npm run clean",
+    "build": "tsc && copyfiles src/_lib/_img/**/* lib/_lib/_img -u 3",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build:watch && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "avatars-utils": "^0.0.4",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1",
+    "sharp": "^0.34.2"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "firebase-functions-test": "^3.1.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.3"
+  },
+  "private": true
+}
