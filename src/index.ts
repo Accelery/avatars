@@ -3,17 +3,25 @@ import { onRequest } from "firebase-functions/v2/https";
 import { combine, defaultFaceFactory } from "./_lib";
 
 export const id = onRequest(async (req, res) => {
-  const id = req.path?.slice(1) || randomUUID();
+  const pathId = req.path?.slice(1);
+  const id = pathId || randomUUID();
   const face = defaultFaceFactory.create(id);
   const png = await combine(face).png().toBuffer();
   res.setHeader("Content-Type", "image/png");
+  if (pathId) {
+    res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+  }
   res.send(png);
 });
 
 export const favicon = onRequest(async (req, res) => {
-  const id = req.headers.referer?.slice(1) || randomUUID();
+  const referer = req.headers.referer;
+  const id = referer || randomUUID();
   const face = defaultFaceFactory.create(id);
   const png = await combine(face).png().toBuffer();
   res.setHeader("Content-Type", "image/png");
+  if (referer) {
+    res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+  }
   res.send(png);
 });
