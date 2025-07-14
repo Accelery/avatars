@@ -2,7 +2,7 @@ import { randomUUID } from "crypto";
 import { onRequest } from "firebase-functions/v2/https";
 import { combine, defaultFaceFactory } from "./_lib";
 
-export const id = onRequest(async (req, res) => {
+export const id = onRequest({ timeoutSeconds: 5 }, async (req, res) => {
   const pathId = req.path?.slice(1);
   const id = pathId || randomUUID();
   const face = defaultFaceFactory.create(id);
@@ -14,7 +14,7 @@ export const id = onRequest(async (req, res) => {
   res.send(png);
 });
 
-export const favicon = onRequest(async (req, res) => {
+export const favicon = onRequest({ timeoutSeconds: 5 }, async (req, res) => {
   const referer = req.headers.referer;
   const id = referer || randomUUID();
   const face = defaultFaceFactory.create(id);
