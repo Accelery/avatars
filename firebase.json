@@ -18,7 +18,7 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
-        "source": "/favicon.ico",
+        "source": "favicon.*",
         "function": "favicon"
       },
       {
