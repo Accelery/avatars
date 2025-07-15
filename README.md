@@ -9,13 +9,13 @@ Welcome to **genavatar.me**, your friendly avatar generator! Every visit gives y
 Want a random avatar? Just visit:
 
 ```
-https://genavatar.me/
+https://api.genavatar.me/
 ```
 
 Or, generate a consistent avatar for any ID (great for user profiles!):
 
 ```
-https://genavatar.me/<your-id>
+https://api.genavatar.me/<your-id>
 ```
 
 Replace `<your-id>` with any string you like—your username, email, or even your favorite emoji! If you skip the ID, you’ll get a new random avatar every time.
@@ -23,11 +23,11 @@ Replace `<your-id>` with any string you like—your username, email, or even you
 ### Examples
 
 - Random avatar:
-  <img src="https://genavatar.me/" alt="drawing" width="200"/>
+  <img src="https://api.genavatar.me/" alt="drawing" width="200"/>
   _(Refresh for a new look!)_
 
 - Avatar for "random":
-  <img src="https://genavatar.me/random" alt="drawing" width="200"/>
+  <img src="https://api.genavatar.me/random" alt="drawing" width="200"/>
 
 ## ✨ Features
 
