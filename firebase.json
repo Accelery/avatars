@@ -19,23 +19,13 @@
       "target": "landing",
       "public": "public",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
+      "rewrites": [{ "source": "**", "destination": "/index.html" }]
     },
     {
       "target": "api-genavatar",
       "public": "functions/public",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [
-        {
-          "source": "**",
-          "function": "id"
-        }
-      ]
+      "rewrites": [{ "source": "**", "function": "id" }]
     }
   ]
 }
