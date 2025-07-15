@@ -28,6 +28,7 @@
     },
     {
       "target": "api-genavatar",
+      "public": "functions/public",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {
