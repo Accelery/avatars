@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/firebase/firebase-tools/master/schema/firebase-config.json",
   "functions": [
     {
-      "source": ".",
+      "source": "functions/",
       "codebase": "default",
       "ignore": [
         "node_modules",
@@ -14,17 +14,28 @@
       "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run build"]
     }
   ],
-  "hosting": {
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "rewrites": [
-      {
-        "source": "/favicon.*",
-        "function": "favicon"
-      },
-      {
-        "source": "**",
-        "function": "id"
-      }
-    ]
-  }
+  "hosting": [
+    {
+      "target": "landing",
+      "public": "public",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "target": "api-genavatar",
+      "public": "functions/lib",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "function": "id"
+        }
+      ]
+    }
+  ]
 }

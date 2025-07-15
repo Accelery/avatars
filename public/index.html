@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <title>genavatar.me — Unique Avatars, Instantly!</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap"
+        rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background: #f7f7fa;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #6c63ff;
+      color: #fff;
+      padding: 2rem 0 1rem 0;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: 2.5rem;
+    }
+
+    .badge {
+      display: inline-block;
+      margin: 0.5rem 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+      padding: 2rem;
+    }
+
+    .features,
+    .usecases {
+      margin-bottom: 2rem;
+    }
+
+    .features ul,
+    .usecases ul {
+      padding-left: 1.2rem;
+    }
+
+    .examples {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .example {
+      text-align: center;
+      background: #f0f0ff;
+      border-radius: 8px;
+      padding: 1rem;
+      flex: 1 1 220px;
+      min-width: 220px;
+    }
+
+    .example img {
+      width: 120px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    footer {
+      text-align: center;
+      color: #888;
+      padding: 2rem 0 1rem 0;
+      font-size: 1rem;
+    }
+
+    .api {
+      background: #eaf0ff;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      font-family: monospace;
+      color: #333;
+    }
+
+    a {
+      color: #6c63ff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>genavatar.me</h1>
+    <div class="badge">
+      <img src="https://img.shields.io/badge/build-passing-brightgreen"
+           alt="Build Status" />
+    </div>
+    <p>Unique Avatars, Instantly!</p>
+  </header>
+  <div class="container">
+    <section class="features">
+      <h2>✨ Features</h2>
+      <ul>
+        <li>Infinite variety: Unique avatars for any string or random ID.</li>
+        <li>Mix &amp; match: Eyes, nose, mouth, and background color for maximum personality.</li>
+        <li>Consistent results: Use the same ID to get the same avatar every time.</li>
+        <li>API-friendly: Just use the URL—no authentication, no fuss.</li>
+      </ul>
+    </section>
+    <section class="examples">
+      <div class="example">
+        <h3>Random Avatar</h3>
+        <img src="https://api.genavatar.me/"
+             alt="Random Avatar" />
+        <div class="api">https://api.genavatar.me/</div>
+        <small>Refresh for a new look!</small>
+      </div>
+      <div class="example">
+        <h3>Avatar for "random"</h3>
+        <img src="https://api.genavatar.me/random"
+             alt="Avatar for random" />
+        <div class="api">https://api.genavatar.me/random</div>
+        <small>Same ID, same face every time.</small>
+      </div>
+      <div class="example">
+        <h3>Avatar for "👾user42"</h3>
+        <img src="https://api.genavatar.me/%F0%9F%91%BEuser42"
+             alt="Avatar for user42" />
+        <div class="api">https://api.genavatar.me/👾user42</div>
+        <small>Try your own ID!</small>
+      </div>
+    </section>
+    <section class="usecases">
+      <h2>🤔 Use Cases</h2>
+      <ul>
+        <li>Profile pictures for apps, forums, and communities</li>
+        <li>Quick visual identity for users—no sign-up, no tracking</li>
+        <li>Fun placeholders for comments, chat, or guest users</li>
+        <li>API integration for instant avatar generation</li>
+      </ul>
+    </section>
+    <section>
+      <h2>🚀 How to Use</h2>
+      <p>Just use the URL format below. Replace <code>&lt;your-id&gt;</code> with any string you
+        like (username, email, emoji, etc.):</p>
+      <div class="api">https://api.genavatar.me/&lt;your-id&gt;</div>
+      <p>If you skip the ID, you’ll get a new random avatar every time!</p>
+    </section>
+  </div>
+  <footer>
+    <p>Give your users a face—try <a href="https://api.genavatar.me/">api.genavatar.me</a> today!
+    </p>
+    <p><small>Powered by Firebase Functions &amp; TypeScript. SVG magic inside.</small></p>
+  </footer>
+</body>
+
+</html>

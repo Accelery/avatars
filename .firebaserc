@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "avatars-333cb"
-  }
+  },
+  "targets": {
+    "avatars-333cb": {
+      "hosting": {
+        "landing": [
+          "avatars-333cb"
+        ],
+        "api-genavatar": [
+          "api-genavatar"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

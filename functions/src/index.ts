@@ -10,18 +10,16 @@ export const id = onRequest({ timeoutSeconds: 5 }, async (req, res) => {
   res.setHeader("Content-Type", "image/png");
   if (pathId) {
     res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+  } else {
+    // Set no cache headers for random faces
+    res.setHeader(
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate, max-age=0"
+    );
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
   }
-  res.send(png);
-});
-
-export const favicon = onRequest({ timeoutSeconds: 5 }, async (req, res) => {
-  const referer = req.headers.referer;
-  const id = referer || randomUUID();
-  const face = defaultFaceFactory.create(id);
-  const png = await combine(face).png().toBuffer();
-  res.setHeader("Content-Type", "image/png");
-  if (referer) {
-    res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
-  }
+  // Add X-Genavatar-ID header for caching purposes
+  res.setHeader("X-Genavatar-ID", id);
   res.send(png);
 });
