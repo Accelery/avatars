@@ -32,7 +32,7 @@ export const id = onRequest({ timeoutSeconds: 1 }, async (req, res) => {
         type,
         lastAccess: new Date(),
         count: FieldValue.increment(1),
-        referers: FieldValue.arrayUnion(req.headers["referer"]),
+        referers: FieldValue.arrayUnion(req.headers["referer"] || ""),
       },
       { merge: true }
     );
