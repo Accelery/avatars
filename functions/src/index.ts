@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto";
-import { initializeApp } from "firebase-admin";
+import { initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import { onRequest } from "firebase-functions/v2/https";
 import { combine, createFace } from "./_lib";
