@@ -25,7 +25,7 @@ export const id = onRequest({ timeoutSeconds: 1 }, async (req, res) => {
   const type = pathId ? "custom" : "random";
   firestoreService
     .collection("analytics")
-    .doc(`${type}:${id}`)
+    .doc(type === "random" ? `${type}` : `${type}:${id}`)
     .set(
       {
         id,
