@@ -7,32 +7,6 @@ import { combine, createFace } from "./_lib";
 initializeApp();
 const firestoreService = getFirestore();
 
-// Helper function to log request analytics
-async function logRequestAnalytics(
-  id: string,
-  type: "random" | "custom",
-  referer?: string
-) {
-  try {
-    const docId = `${type}:${id}`;
-    const docRef = firestoreService.collection("analytics").doc(docId);
-
-    await docRef.set(
-      {
-        id,
-        type,
-        lastAccess: new Date(),
-        count: FieldValue.increment(1),
-        referers: FieldValue.arrayUnion(referer),
-      },
-      { merge: true }
-    );
-  } catch (error) {
-    console.error("Error logging analytics:", error);
-    // Don't throw error - we don't want to fail the request if analytics fails
-  }
-}
-
 export const id = onRequest({ timeoutSeconds: 1 }, async (req, res) => {
   const pathId = req.path?.slice(1);
   const id = pathId || randomUUID();
@@ -48,11 +22,18 @@ export const id = onRequest({ timeoutSeconds: 1 }, async (req, res) => {
   );
 
   res.send(png);
-
-  // Log analytics after sending response
-  await logRequestAnalytics(
-    id,
-    pathId ? "custom" : "random",
-    req.headers["referer"]
-  );
+  const type = pathId ? "custom" : "random";
+  firestoreService
+    .collection("analytics")
+    .doc(`${type}:${id}`)
+    .set(
+      {
+        id,
+        type,
+        lastAccess: new Date(),
+        count: FieldValue.increment(1),
+        referers: FieldValue.arrayUnion(req.headers["referer"]),
+      },
+      { merge: true }
+    );
 });
