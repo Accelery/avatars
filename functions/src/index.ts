@@ -21,19 +21,17 @@ export const id = onRequest({ timeoutSeconds: 1 }, async (req, res) => {
       : "no-store, no-cache, must-revalidate, max-age=0"
   );
 
-  res.send(png);
-  const type = pathId ? "custom" : "random";
   firestoreService
     .collection("analytics")
-    .doc(type === "random" ? `${type}` : `${type}:${id}`)
+    .doc(pathId || "random")
     .set(
       {
-        id,
-        type,
+        pathId,
         lastAccess: new Date(),
         count: FieldValue.increment(1),
         referers: FieldValue.arrayUnion(req.headers["referer"] || ""),
       },
       { merge: true }
     );
+  res.send(png);
 });
