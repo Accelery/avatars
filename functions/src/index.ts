@@ -8,12 +8,12 @@ initializeApp();
 const firestoreService = getFirestore();
 
 export const id = onRequest({ timeoutSeconds: 1 }, async (req, res) => {
-  const pathId = req.path?.slice(1);
+  const pathId = encodeURIComponent(req.path?.slice(1));
   const id = pathId || randomUUID();
   const face = createFace(id);
   const png = await combine(face).png().toBuffer();
   res.setHeader("Content-Type", "image/png");
-  res.setHeader("X-Genavatar-ID", id);
+  res.setHeader("X-Genavatar-Id", id);
   res.setHeader(
     "Cache-Control",
     pathId
