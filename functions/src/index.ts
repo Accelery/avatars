@@ -7,31 +7,37 @@ import { combine, createFace } from "./_lib";
 initializeApp();
 const firestoreService = getFirestore();
 
-export const id = onRequest({ timeoutSeconds: 1 }, async (req, res) => {
-  const pathId = encodeURIComponent(req.path?.slice(1));
-  const id = pathId || randomUUID();
-  const face = createFace(id);
-  const png = await combine(face).png().toBuffer();
-  res.setHeader("Content-Type", "image/png");
-  res.setHeader("X-Genavatar-Id", id);
-  res.setHeader(
-    "Cache-Control",
-    pathId
-      ? "public, max-age=31536000, immutable"
-      : "no-store, no-cache, must-revalidate, max-age=0"
-  );
+export const id = onRequest(
+  { timeoutSeconds: 1, maxInstances: 5 },
+  async (req, res) => {
+    // Remove initial /, limit to 36 chars (length of UUID)
+    const pathId = encodeURIComponent(req.path?.slice(1, 37));
 
-  firestoreService
-    .collection("analytics")
-    .doc(pathId || "random")
-    .set(
-      {
-        pathId,
-        lastAccess: new Date(),
-        count: FieldValue.increment(1),
-        referers: FieldValue.arrayUnion(req.headers["referer"] || ""),
-      },
-      { merge: true }
+    const id = pathId || randomUUID();
+    const face = createFace(id);
+    const png = await combine(face).png().toBuffer();
+    res.setHeader("Content-Type", "image/png");
+    res.setHeader("X-Genavatar-Id", id);
+    res.setHeader(
+      "Cache-Control",
+      pathId
+        ? "public, max-age=31536000, immutable"
+        : "no-store, no-cache, must-revalidate, max-age=0"
     );
-  res.send(png);
-});
+
+    // Log analytics data
+    firestoreService
+      .collection("analytics")
+      .doc(pathId || "random")
+      .set(
+        {
+          pathId,
+          lastAccess: new Date(),
+          count: FieldValue.increment(1),
+          referers: FieldValue.arrayUnion(req.headers["referer"] || ""),
+        },
+        { merge: true }
+      );
+    res.send(png);
+  }
+);
