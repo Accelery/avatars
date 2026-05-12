@@ -4,14 +4,9 @@
   "main": "src/index.ts",
   "compatibility_date": "2025-05-01",
   // PNG assets imported as ArrayBuffer
-  "rules": [
-    { "type": "Data", "globs": ["**/*.png"], "fallthrough": false }
-  ],
+  "rules": [{ "type": "Data", "globs": ["**/*.png"], "fallthrough": false }],
   "analytics_engine_datasets": [
-    { "binding": "ANALYTICS_ENGINE", "dataset": "analytics_avatars" }
-  ]
-  // To bind to a custom domain, add:
-  // "routes": [
-  //   { "pattern": "api.genavatar.me/*", "zone_name": "genavatar.me" }
-  // ]
+    { "binding": "ANALYTICS_ENGINE", "dataset": "analytics_avatars" },
+  ],
+  "custom_domains": [{ "pattern": "api-cf.genavatar.me" }],
 }
