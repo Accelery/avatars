@@ -1,71 +1,37 @@
-# Avatar Generator Firebase Functions
+# functions/
 
-This directory contains the Firebase Functions that power the genavatar.me avatar generation service. These functions generate unique avatar images based on a specified ID or randomly.
+Avatar generation for [genavatar.me](https://genavatar.me). A single Cloud Function receives an HTTP request, composites a PNG from static assets, and returns it.
 
-## Functions Overview
+## Commands
 
-Two main functions are exposed:
-
-1. **id** - Generates an avatar based on a specific ID provided in the URL path
-
-   - Route: `https://genavatar.me/<your-id>`
-   - Example: `https://genavatar.me/user123`
-
-2. **random** - Generates a random avatar each time it's called
-   - Route: `https://genavatar.me/random`
-
-## How It Works
-
-Each avatar is composed of:
-
-- A randomly selected pair of eyes
-- A randomly selected nose
-- A randomly selected mouth
-- A background color
-
-For the `id` function, the components are selected deterministically based on the provided ID, ensuring the same ID always produces the same avatar.
-
-## Local Development
-
-To run the functions locally:
+All commands run from this directory.
 
 ```bash
-npm run serve
+pnpm install                  # install dependencies
+pnpm run build                # compile TypeScript + copy image assets to lib/
+pnpm run serve                # watch mode + Firebase emulator
+pnpm run deploy               # deploy to Cloud Functions
 ```
 
-This will start the Firebase emulator and watch for file changes.
+> **Note:** `pnpm run build` does two things: runs `tsc` and copies `src/_lib/_img/` into `lib/_lib/_img/`. The copy step is required — `tsc` alone leaves the function without its assets at runtime.
 
-## Deployment
+## Source
 
-Deploy to Firebase Functions using:
+| File | Purpose |
+|---|---|
+| `src/index.ts` | HTTP handler — parses the request path, calls `createFace`, returns PNG |
+| `src/_lib/index.ts` | `createFace(id)` + `combine(face)` — hashing and sharp pipeline |
+| `src/_lib/_img/` | Static PNG assets: `eyes/` (9), `nose/` (8), `mouth/` (8) |
 
-```bash
-npm run deploy
-```
+## How the pipeline works
 
-Or via the GitHub Actions workflow which automatically deploys on push to the main branch.
+1. The request path (up to 36 chars) is used as the avatar ID. An empty path generates a random UUID.
+2. `createFace(id)` hashes the ID to select one asset from each category and a background color.
+3. `combine(face)` composites the three layers with sharp and flattens them onto the background color.
+4. The result is returned as `image/png`.
 
-## Project Structure
+Named IDs get `Cache-Control: public, max-age=31536000, immutable`. Random requests get `no-store`.
 
-```
-functions/
-├── src/              # TypeScript source files
-│   ├── index.ts      # Main entry point
-│   └── _lib/         # Supporting library code
-│       ├── index.ts  # Library exports
-│       └── _img/     # Image assets (eyes, nose, mouth)
-├── lib/              # Compiled JavaScript output
-├── node_modules/     # Dependencies
-├── package.json      # Project configuration
-└── tsconfig.json     # TypeScript configuration
-```
+## Asset ordering
 
-## Caching
-
-The generated avatars use aggressive caching with:
-
-- `public` - Cacheable by any cache
-- `max-age=31536000` - Cache for one year
-- `immutable` - Content will never change during freshness lifetime
-
-This ensures fast loading times and reduced bandwidth usage for returning visitors.
+The image files in `_img/` have non-contiguous numbering (some numbers are missing). **Do not fill the gaps.** The hash selects by array index — adding a file where a gap exists changes the index of every subsequent file and breaks determinism for all existing IDs. Append new assets only.

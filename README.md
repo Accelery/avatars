@@ -1,52 +1,69 @@
-# 🧑‍🎨 genavatar.me — Unique Avatars, Instantly!
+# genavatar.me
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://genavatar.me/)
-
-Welcome to **genavatar.me**, your friendly avatar generator! Every visit gives you a fresh face—no two are ever the same. Powered by Firebase Functions, genavatar.me combines eyes, noses, mouths, and backgrounds for endless possibilities.
-
-## 🚀 Quick Start
-
-Want a random avatar? Just visit:
-
-```
-https://api.genavatar.me/
-```
-
-Or, generate a consistent avatar for any ID (great for user profiles!):
+Unique, deterministic avatars from any string — served as a plain HTTP image URL.
 
 ```
 https://api.genavatar.me/<your-id>
 ```
 
-Replace `<your-id>` with any string you like—your username, email, or even your favorite emoji! If you skip the ID, you’ll get a new random avatar every time.
+Pass any string as the path and get back a PNG. Same ID always produces the same avatar. Omit the path for a random one.
 
-### Examples
+## Usage
 
-- Random avatar:
-  <img src="https://api.genavatar.me/" alt="drawing" width="200"/>
-  _(Refresh for a new look!)_
+```html
+<!-- Named — consistent across requests -->
+<img src="https://api.genavatar.me/username">
 
-- Avatar for "random":
-  <img src="https://api.genavatar.me/random" alt="drawing" width="200"/>
+<!-- Random — new avatar on every request -->
+<img src="https://api.genavatar.me/">
+```
 
-## ✨ Features
+No API key. No SDK. No sign-up.
 
-- Infinite variety: Unique avatars for any string or random ID.
-- Mix & match: Eyes, nose, mouth, and background color are all combined for maximum personality.
-- Consistent results: Use the same ID to get the same avatar every time.
-- API-friendly: Just use the URL—no authentication, no fuss.
+## How it works
 
-## 🛠️ Tech Stack
+Each avatar is composed of eyes, a nose, a mouth, and a background color. The combination is derived deterministically from the input string via a stable hash, so the same ID always maps to the same face.
 
-- Firebase Functions: Fast, serverless avatar generation.
-- TypeScript: Typed, reliable codebase.
-- SVG magic: Crisp, scalable images.
+Named avatars are cached for one year (`Cache-Control: public, max-age=31536000, immutable`). Random avatars are never cached.
 
-## 🤔 Why genavatar.me?
+## Repository layout
 
-- Perfect for profile pictures, forums, or anywhere you need a quick visual identity.
-- No sign-up, no tracking, just avatars!
+```
+public/        # Landing page — static HTML/CSS, no build step
+functions/     # Avatar generation — TypeScript, Node 22
+  src/
+    index.ts         # HTTP handler (exported as `id`)
+    _lib/
+      index.ts       # createFace() + combine() via sharp
+      _img/          # PNG assets: eyes/ nose/ mouth/
+```
 
----
+## Development
 
-Give your users a face—try [genavatar.me](https://genavatar.me/) today!
+```bash
+cd functions
+pnpm install
+pnpm run serve       # tsc --watch + Firebase emulator
+```
+
+Requires the [Firebase CLI](https://firebase.google.com/docs/cli) and a linked project (`firebase use`).
+
+## Deployment
+
+CI deploys automatically on push to `main`:
+
+- `functions/**` changes → deploys the Cloud Function
+- `public/**` changes → deploys the landing page
+
+To deploy manually:
+
+```bash
+cd functions
+pnpm run deploy           # function only
+firebase deploy --only hosting:landing
+firebase deploy --only hosting:api-genavatar
+```
+
+## License
+
+MIT
