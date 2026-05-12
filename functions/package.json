@@ -9,14 +9,15 @@
     "shell": "pnpm run build && firebase functions:shell",
     "start": "pnpm run shell",
     "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+    "test": "vitest run"
   },
   "engines": {
     "node": "22"
   },
   "packageManager": "pnpm@10.33.2",
   "pnpm": {
-    "onlyBuiltDependencies": ["sharp", "protobufjs", "re2"]
+    "onlyBuiltDependencies": ["esbuild", "sharp", "protobufjs", "re2"]
   },
   "main": "lib/index.js",
   "dependencies": {
@@ -28,9 +29,11 @@
   "devDependencies": {
     "concurrently": "^9.0.0",
     "copyfiles": "^2.4.1",
+    "firebase-functions-test": "^3.1.0",
     "firebase-tools": "^14.10.1",
     "rimraf": "^6.0.1",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^2.0.0"
   },
   "private": true
 }

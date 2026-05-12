@@ -41,12 +41,14 @@ functions/     # Avatar generation — TypeScript, Node 22
 ## Development
 
 ```bash
+cp .firebaserc.example .firebaserc   # configure your Firebase project (or any placeholder)
 cd functions
 pnpm install
-pnpm run serve       # tsc --watch + Firebase emulator
+pnpm test                            # run unit tests
+pnpm run serve                       # tsc --watch + Firebase emulator
 ```
 
-Requires the [Firebase CLI](https://firebase.google.com/docs/cli) and a linked project (`firebase use`).
+Requires the [Firebase CLI](https://firebase.google.com/docs/cli). See [CONTRIBUTING.md](CONTRIBUTING.md) for full setup instructions including emulator-only dev (no real Firebase project needed).
 
 ## Deployment
 
@@ -63,6 +65,10 @@ pnpm run deploy           # function only
 firebase deploy --only hosting:landing
 firebase deploy --only hosting:api-genavatar
 ```
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 

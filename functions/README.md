@@ -8,12 +8,36 @@ All commands run from this directory.
 
 ```bash
 pnpm install                  # install dependencies
+pnpm test                     # run unit tests (no build needed)
 pnpm run build                # compile TypeScript + copy image assets to lib/
 pnpm run serve                # watch mode + Firebase emulator
 pnpm run deploy               # deploy to Cloud Functions
 ```
 
 > **Note:** `pnpm run build` does two things: runs `tsc` and copies `src/_lib/_img/` into `lib/_lib/_img/`. The copy step is required — `tsc` alone leaves the function without its assets at runtime.
+
+## Local dev without a Firebase project
+
+`pnpm run serve` works without access to the production Firebase project. The function runs entirely in the Firebase emulator.
+
+To avoid Firestore write errors, point the SDK at the Firestore emulator:
+
+```bash
+export FIRESTORE_EMULATOR_HOST=localhost:8080
+pnpm run serve
+```
+
+Or start all emulators together (Functions + Firestore):
+
+```bash
+firebase emulators:start
+```
+
+The `.firebaserc` file is gitignored. Copy the example and set any project ID:
+
+```bash
+cp ../.firebaserc.example ../.firebaserc
+```
 
 ## Source
 

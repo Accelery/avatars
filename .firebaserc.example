@@ -1,15 +1,15 @@
 {
   "projects": {
-    "default": "avatars-333cb"
+    "default": "your-firebase-project-id"
   },
   "targets": {
-    "avatars-333cb": {
+    "your-firebase-project-id": {
       "hosting": {
         "landing": [
-          "avatars-333cb"
+          "your-firebase-project-id"
         ],
         "api-genavatar": [
-          "api-genavatar"
+          "your-api-hosting-target"
         ]
       }
     }
