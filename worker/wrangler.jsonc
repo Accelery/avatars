@@ -8,5 +8,5 @@
   "analytics_engine_datasets": [
     { "binding": "ANALYTICS_ENGINE", "dataset": "analytics_avatars" },
   ],
-  "custom_domains": [{ "pattern": "api-cf.genavatar.me" }],
+  "routes": [{ "pattern": "api-cf.genavatar.me", "custom_domain": true }],
 }
