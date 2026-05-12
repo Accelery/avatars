@@ -3,29 +3,46 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
   <title>genavatar.me — Instant avatars for every user</title>
-  <meta name="description" content="Generate unique, consistent avatars from any string. Drop-in API, no sign-up required.">
-  <link rel="canonical" href="https://genavatar.me/">
-  <meta name="robots" content="index, follow">
+  <meta name="description"
+        content="Generate unique, consistent avatars from any string. Drop-in API, no sign-up required.">
+  <link rel="canonical"
+        href="https://genavatar.me/">
+  <meta name="robots"
+        content="index, follow">
 
   <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://genavatar.me/">
-  <meta property="og:title" content="genavatar.me — Instant avatars for every user">
-  <meta property="og:description" content="Generate unique, consistent avatars from any string. Drop-in API, no sign-up required.">
-  <meta property="og:image" content="https://genavatar.me/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:site_name" content="genavatar.me">
-  <meta property="og:locale" content="en_US">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="https://genavatar.me/">
+  <meta property="og:title"
+        content="genavatar.me — Instant avatars for every user">
+  <meta property="og:description"
+        content="Generate unique, consistent avatars from any string. Drop-in API, no sign-up required.">
+  <meta property="og:image"
+        content="https://genavatar.me/og-image.png">
+  <meta property="og:image:width"
+        content="1200">
+  <meta property="og:image:height"
+        content="630">
+  <meta property="og:site_name"
+        content="genavatar.me">
+  <meta property="og:locale"
+        content="en_US">
 
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="genavatar.me — Instant avatars for every user">
-  <meta name="twitter:description" content="Generate unique, consistent avatars from any string. Drop-in API, no sign-up required.">
-  <meta name="twitter:image" content="https://genavatar.me/og-image.png">
+  <meta name="twitter:card"
+        content="summary_large_image">
+  <meta name="twitter:title"
+        content="genavatar.me — Instant avatars for every user">
+  <meta name="twitter:description"
+        content="Generate unique, consistent avatars from any string. Drop-in API, no sign-up required.">
+  <meta name="twitter:image"
+        content="https://genavatar.me/og-image.png">
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -45,73 +62,139 @@
   }
   </script>
 
-  <link rel="icon" type="image/png" href="/favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="icon"
+        type="image/png"
+        href="/favicon.png">
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+  <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+  <link rel="stylesheet"
+        href="styles.css">
 </head>
 
 <body>
 
   <nav>
     <span class="nav-logo">genavatar.me</span>
-    <a href="https://api.genavatar.me/" target="_blank" class="btn btn-ghost">Try it live</a>
+    <a href="https://api.genavatar.me/"
+       target="_blank"
+       class="btn btn-ghost">Try it live</a>
   </nav>
 
   <section class="hero">
     <div class="hero-text">
       <h1>Instant avatars<br>for every user</h1>
-      <p class="hero-sub">A single URL gives any string a face — unique, consistent, and always the same for the same ID. No accounts, no keys, no friction.</p>
+      <p class="hero-sub">A single URL gives any string a face — unique, consistent, and always the
+        same for the same ID. No accounts, no keys, no friction.</p>
       <div class="hero-actions">
-        <a href="#api" class="btn btn-primary">See the API</a>
-        <a href="https://api.genavatar.me/" target="_blank" class="btn btn-outline">Generate one now</a>
+        <a href="#api"
+           class="btn btn-primary">See the API</a>
+        <a href="https://api.genavatar.me/"
+           target="_blank"
+           class="btn btn-outline">Generate one now</a>
       </div>
     </div>
-    <div class="hero-avatars" aria-hidden="true">
+    <div class="hero-avatars"
+         aria-hidden="true">
       <div class="avatar-cluster">
-        <div class="av-wrap"><img src="/avatars/alice.png" alt="" class="av av-lg"><span class="av-tooltip">https://api.genavatar.me/<span class="code-hl">alice</span></span></div>
-        <div class="av-wrap"><img src="/avatars/bob.png" alt="" class="av av-md"><span class="av-tooltip">https://api.genavatar.me/<span class="code-hl">bob</span></span></div>
-        <div class="av-wrap"><img src="/avatars/carol.png" alt="" class="av av-sm"><span class="av-tooltip">https://api.genavatar.me/<span class="code-hl">carol</span></span></div>
-        <div class="av-wrap"><img src="/avatars/dave.png" alt="" class="av av-md"><span class="av-tooltip">https://api.genavatar.me/<span class="code-hl">dave</span></span></div>
-        <div class="av-wrap"><img src="/avatars/eve.png" alt="" class="av av-sm"><span class="av-tooltip">https://api.genavatar.me/<span class="code-hl">eve</span></span></div>
-        <div class="av-wrap"><img src="/avatars/frank.png" alt="" class="av av-lg"><span class="av-tooltip">https://api.genavatar.me/<span class="code-hl">frank</span></span></div>
-        <div class="av-wrap"><img src="/avatars/grace.png" alt="" class="av av-md"><span class="av-tooltip">https://api.genavatar.me/<span class="code-hl">grace</span></span></div>
-        <div class="av-wrap"><img src="/avatars/henry.png" alt="" class="av av-sm"><span class="av-tooltip">https://api.genavatar.me/<span class="code-hl">henry</span></span></div>
+        <div class="av-wrap"><img src="/avatars/alice.png"
+               alt=""
+               class="av av-lg"><span class="av-tooltip">https://api.genavatar.me/<span
+                  class="code-hl">alice</span></span></div>
+        <div class="av-wrap"><img src="/avatars/bob.png"
+               alt=""
+               class="av av-md"><span class="av-tooltip">https://api.genavatar.me/<span
+                  class="code-hl">bob</span></span></div>
+        <div class="av-wrap"><img src="/avatars/carol.png"
+               alt=""
+               class="av av-sm"><span class="av-tooltip">https://api.genavatar.me/<span
+                  class="code-hl">carol</span></span></div>
+        <div class="av-wrap"><img src="/avatars/dave.png"
+               alt=""
+               class="av av-md"><span class="av-tooltip">https://api.genavatar.me/<span
+                  class="code-hl">dave</span></span></div>
+        <div class="av-wrap"><img src="/avatars/eve.png"
+               alt=""
+               class="av av-sm"><span class="av-tooltip">https://api.genavatar.me/<span
+                  class="code-hl">eve</span></span></div>
+        <div class="av-wrap"><img src="/avatars/frank.png"
+               alt=""
+               class="av av-lg"><span class="av-tooltip">https://api.genavatar.me/<span
+                  class="code-hl">frank</span></span></div>
+        <div class="av-wrap"><img src="/avatars/grace.png"
+               alt=""
+               class="av av-md"><span class="av-tooltip">https://api.genavatar.me/<span
+                  class="code-hl">grace</span></span></div>
+        <div class="av-wrap"><img src="/avatars/henry.png"
+               alt=""
+               class="av av-sm"><span class="av-tooltip">https://api.genavatar.me/<span
+                  class="code-hl">henry</span></span></div>
       </div>
     </div>
   </section>
 
-  <section class="pillars" aria-labelledby="pillars-heading">
-    <h2 id="pillars-heading" class="sr-only">Key features</h2>
+  <section class="pillars"
+           aria-labelledby="pillars-heading">
+    <h2 id="pillars-heading"
+        class="sr-only">Key features</h2>
     <div class="pillar">
       <div class="pillar-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 2L12.09 7.26L18 7.27L13.45 10.77L15.18 16.02L10 12.77L4.82 16.02L6.55 10.77L2 7.27L7.91 7.26L10 2Z" fill="currentColor"/></svg>
+        <svg width="20"
+             height="20"
+             viewBox="0 0 20 20"
+             fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 2L12.09 7.26L18 7.27L13.45 10.77L15.18 16.02L10 12.77L4.82 16.02L6.55 10.77L2 7.27L7.91 7.26L10 2Z"
+                fill="currentColor" />
+        </svg>
       </div>
       <h3>Deterministic</h3>
-      <p>The same ID always produces the same avatar. Perfect for user profiles that need to stay consistent across sessions and devices.</p>
+      <p>The same ID always produces the same avatar. Perfect for user profiles that need to stay
+        consistent across sessions and devices.</p>
     </div>
     <div class="pillar">
       <div class="pillar-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 10C3 6.13 6.13 3 10 3s7 3.13 7 7-3.13 7-7 7-7-3.13-7-7zm7-5v5l3.5 2.1-.75 1.23L9 11V5h1z" fill="currentColor"/></svg>
+        <svg width="20"
+             height="20"
+             viewBox="0 0 20 20"
+             fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 10C3 6.13 6.13 3 10 3s7 3.13 7 7-3.13 7-7 7-7-3.13-7-7zm7-5v5l3.5 2.1-.75 1.23L9 11V5h1z"
+                fill="currentColor" />
+        </svg>
       </div>
       <h3>Instant</h3>
-      <p>No generation step on your end. Just reference the URL and the image is served — cache-busted for random, immutable for named IDs.</p>
+      <p>No generation step on your end. Just reference the URL and the image is served —
+        cache-busted for random, immutable for named IDs.</p>
     </div>
     <div class="pillar">
       <div class="pillar-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9zM4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" fill="currentColor"/></svg>
+        <svg width="20"
+             height="20"
+             viewBox="0 0 20 20"
+             fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9zM4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
+                fill="currentColor" />
+        </svg>
       </div>
       <h3>Zero setup</h3>
-      <p>No API key, no sign-up, no SDK. One URL pattern covers every use case — plug it straight into your <code>&lt;img&gt;</code> tag.</p>
+      <p>No API key, no sign-up, no SDK. One URL pattern covers every use case — plug it straight
+        into your <code>&lt;img&gt;</code> tag.</p>
     </div>
   </section>
 
-  <section class="api-section" id="api">
+  <section class="api-section"
+           id="api">
     <div class="api-inner">
       <div class="api-copy">
         <h2>One URL.<br>Any identity.</h2>
-        <p>Pass any string as the path — a username, an email, a UUID. Get back a PNG. Skip the path for a random avatar every time.</p>
+        <p>Pass any string as the path — a username, an email, a UUID. Get back a PNG. Skip the path
+          for a random avatar every time.</p>
         <ul class="api-list">
           <li><span class="tag">Named</span> Same ID → same face, forever</li>
           <li><span class="tag">Random</span> No path → fresh avatar on every request</li>
@@ -129,7 +212,8 @@
         </div>
         <div class="code-row">
           <span class="code-comment"># works in any &lt;img&gt; tag</span>
-          <code>&lt;img src="https://api.genavatar.me/<span class="code-hl">&#123;userId&#125;</span>"&gt;</code>
+          <code>&lt;img src="https://api.genavatar.me/<span
+                  class="code-hl">&#123;userId&#125;</span>"&gt;</code>
         </div>
       </div>
     </div>
@@ -168,7 +252,9 @@
   <section class="cta">
     <h2>Try it right now</h2>
     <p>Open the URL in a new tab. That's the whole onboarding.</p>
-    <a href="https://api.genavatar.me/" target="_blank" class="btn btn-primary btn-lg">Generate an avatar</a>
+    <a href="https://api.genavatar.me/"
+       target="_blank"
+       class="btn btn-primary btn-lg">Generate an avatar</a>
   </section>
 
   <footer>
@@ -178,4 +264,5 @@
   </footer>
 
 </body>
+
 </html>
