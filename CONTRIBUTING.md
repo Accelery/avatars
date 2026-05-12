@@ -83,36 +83,18 @@ The image assets in `functions/src/_lib/_img/` are the building blocks of every 
 
 ## CI / deployment secrets
 
-The functions deploy workflow authenticates to Google Cloud via [Workload Identity Federation](https://cloud.google.com/iam/docs/workload-identity-federation) — no long-lived service account key is stored. Two repository secrets are required:
+The functions deploy workflow authenticates to Google Cloud using a service account JSON key stored as a repository secret.
 
 | Secret | Value |
 |---|---|
-| `WIF_PROVIDER` | Workload Identity Provider resource name, e.g. `projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID` |
-| `WIF_SERVICE_ACCOUNT` | Service account email, e.g. `github-actions@PROJECT_ID.iam.gserviceaccount.com` |
+| `FIREBASE_SERVICE_ACCOUNT_AVATARS_333CB` | Full contents of the service account JSON key file |
 
 To set up from scratch (requires `gcloud` and `Owner` on the project):
 
 ```bash
 PROJECT_ID=your-project-id
-PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format='value(projectNumber)')
-REPO=Accelery/avatars   # org/repo
 
-# 1. Create the Workload Identity Pool
-gcloud iam workload-identity-pools create "github" \
-  --project=$PROJECT_ID \
-  --location=global \
-  --display-name="GitHub Actions"
-
-# 2. Create the OIDC provider
-gcloud iam workload-identity-pools providers create-oidc "github" \
-  --project=$PROJECT_ID \
-  --location=global \
-  --workload-identity-pool="github" \
-  --issuer-uri="https://token.actions.githubusercontent.com" \
-  --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository" \
-  --attribute-condition="attribute.repository=='${REPO}'"
-
-# 3. Create the service account and grant Firebase deploy permissions
+# 1. Create the service account and grant Firebase deploy permissions
 gcloud iam service-accounts create "github-actions" \
   --project=$PROJECT_ID \
   --display-name="GitHub Actions deploy"
@@ -121,22 +103,19 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member="serviceAccount:github-actions@${PROJECT_ID}.iam.gserviceaccount.com" \
   --role="roles/firebase.admin"
 
-# 4. Allow the pool to impersonate the service account
-gcloud iam service-accounts add-iam-policy-binding \
-  "github-actions@${PROJECT_ID}.iam.gserviceaccount.com" \
-  --project=$PROJECT_ID \
-  --role="roles/iam.workloadIdentityUser" \
-  --member="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/github/attribute.repository/${REPO}"
+# 2. Create and download a JSON key
+gcloud iam service-accounts keys create github-actions-key.json \
+  --iam-account="github-actions@${PROJECT_ID}.iam.gserviceaccount.com"
 ```
 
-Then set the secrets in GitHub:
+Then add the secret in GitHub:
 
 ```bash
-# WIF_PROVIDER value:
-echo "projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/github/providers/github"
+# Set FIREBASE_SERVICE_ACCOUNT_AVATARS_333CB to the full contents of github-actions-key.json
+gh secret set FIREBASE_SERVICE_ACCOUNT_AVATARS_333CB < github-actions-key.json
 
-# WIF_SERVICE_ACCOUNT value:
-echo "github-actions@${PROJECT_ID}.iam.gserviceaccount.com"
+# Remove the local key file
+rm github-actions-key.json
 ```
 
 ## Pull requests

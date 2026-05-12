@@ -1,4 +1,4 @@
-# functions/ directory
+# functions/
 
 Avatar generation for [genavatar.me](https://genavatar.me). A single Cloud Function receives an HTTP request, composites a PNG from static assets, and returns it.
 
