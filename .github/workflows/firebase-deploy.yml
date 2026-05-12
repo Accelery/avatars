@@ -17,18 +17,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: functions/package.json
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version-file: "functions/.nvmrc"
-          cache: "npm"
-          cache-dependency-path: functions/package-lock.json
+          cache: "pnpm"
+          cache-dependency-path: functions/pnpm-lock.yaml
 
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
         working-directory: functions
 
       - name: Deploy to Firebase
-        run: npm run deploy
+        run: pnpm run deploy
         working-directory: functions
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
