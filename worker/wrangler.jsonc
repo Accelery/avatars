@@ -9,4 +9,5 @@
     { "binding": "ANALYTICS_ENGINE", "dataset": "analytics_avatars" },
   ],
   "routes": [{ "pattern": "api-cf.genavatar.me", "custom_domain": true }],
+  "observability": { "enabled": true }
 }
