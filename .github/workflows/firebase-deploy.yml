@@ -40,11 +40,10 @@ jobs:
         run: pnpm test
         working-directory: functions
 
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
+      - name: Authenticate
+        uses: google-github-actions/auth@v3
         with:
-          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
-          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_AVATARS_333CB }}
 
       - name: Deploy to Firebase
         run: pnpm run deploy
