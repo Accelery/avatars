@@ -8,7 +8,7 @@
     { "type": "Data", "globs": ["**/*.png"], "fallthrough": false }
   ],
   "analytics_engine_datasets": [
-    { "binding": "ANALYTICS", "dataset": "genavatar_events" }
+    { "binding": "ANALYTICS_ENGINE", "dataset": "analytics_avatars" }
   ]
   // To bind to a custom domain, add:
   // "routes": [

@@ -1,7 +1,7 @@
 import { combine, createFace } from "./_lib";
 
 export interface Env {
-  ANALYTICS: AnalyticsEngineDataset;
+  ANALYTICS_ENGINE: AnalyticsEngineDataset;
 }
 
 export default {
@@ -19,7 +19,7 @@ export default {
     // Fire-and-forget analytics (unless caller opts out)
     const noTrack = url.searchParams.get("notrack") === "true";
     if (!noTrack) {
-      env.ANALYTICS.writeDataPoint({
+      env.ANALYTICS_ENGINE.writeDataPoint({
         blobs: [pathId ?? "random", request.headers.get("referer") ?? ""],
         doubles: [1],
         indexes: [avatarId],
