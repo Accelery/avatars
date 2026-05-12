@@ -25,21 +25,24 @@ export const id = onRequest(
         : "no-store, no-cache, must-revalidate, max-age=0"
     );
 
-    // Log analytics data (fire-and-forget)
-    const referer = req.headers["referer"];
-    firestoreService
-      .collection("analytics")
-      .doc(pathId || "random")
-      .set(
-        {
-          pathId,
-          lastAccess: FieldValue.serverTimestamp(),
-          count: FieldValue.increment(1),
-          ...(referer ? { referers: FieldValue.arrayUnion(referer) } : {}),
-        },
-        { merge: true }
-      )
-      .catch((err) => console.error("Analytics write failed:", err));
+    // Log analytics data (fire-and-forget), unless caller opts out
+    const noTrack = req.query["notrack"] === "true";
+    if (!noTrack) {
+      const referer = req.headers["referer"];
+      firestoreService
+        .collection("analytics")
+        .doc(pathId || "random")
+        .set(
+          {
+            pathId,
+            lastAccess: FieldValue.serverTimestamp(),
+            count: FieldValue.increment(1),
+            ...(referer ? { referers: FieldValue.arrayUnion(referer) } : {}),
+          },
+          { merge: true }
+        )
+        .catch((err) => console.error("Analytics write failed:", err));
+    }
     res.send(png);
   }
 );
