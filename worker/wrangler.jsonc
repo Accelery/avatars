@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
+  "name": "avatars-id",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-05-01",
+  // PNG assets imported as ArrayBuffer
+  "rules": [
+    { "type": "Data", "globs": ["**/*.png"], "fallthrough": false }
+  ],
+  "analytics_engine_datasets": [
+    { "binding": "ANALYTICS", "dataset": "genavatar_events" }
+  ]
+  // To bind to a custom domain, add:
+  // "routes": [
+  //   { "pattern": "api.genavatar.me/*", "zone_name": "genavatar.me" }
+  // ]
+}

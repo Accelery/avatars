@@ -1,0 +1,29 @@
+{
+  "name": "worker",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "cf-typegen": "wrangler types"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "packageManager": "pnpm@10.33.2",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "workerd"
+    ],
+    "ignoredBuiltDependencies": [
+      "sharp"
+    ]
+  },
+  "dependencies": {
+    "@cf-wasm/photon": "^0.2.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "wrangler": "^4.14.4"
+  }
+}
