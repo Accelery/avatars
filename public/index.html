@@ -3,91 +3,139 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-  <title>genavatar.me — Unique Avatars, Instantly!</title>
-  <link rel="icon"
-        type="image/png"
-        href="/favicon.png">
-  <link rel="preconnect"
-        href="https://fonts.googleapis.com">
-  <link rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
-  <link rel="stylesheet"
-        href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>genavatar.me — Instant avatars for every user</title>
+  <meta name="description" content="Generate unique, consistent avatars from any string. Drop-in API, no sign-up required.">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <header>
-    <h1>genavatar.me</h1>
-    <div class="badge">
-      <img src="https://github.com/Accelery/avatars/actions/workflows/firebase-deploy.yml/badge.svg"
-           alt="Build Status" />
-    </div>
-    <p>Unique Avatars, Instantly!</p>
-  </header>
-  <div class="container">
-    <section class="features">
-      <h2>✨ Features</h2>
-      <ul>
-        <li>Infinite variety: Unique avatars for any string or random ID.</li>
-        <li>Mix &amp; match: Eyes, nose, mouth, and background color for maximum personality.</li>
-        <li>Consistent results: Use the same ID to get the same avatar every time.</li>
-        <li>API-friendly: Just use the URL—no authentication, no fuss.</li>
-      </ul>
-    </section>
-    <section class="examples">
-      <div class="example">
-        <h3>Random Avatar</h3>
-        <img src="https://api.genavatar.me/"
-             alt="Random Avatar" />
-        <div class="api"><a href="https://api.genavatar.me/"
-             target="_blank">https://api.genavatar.me/</a></div>
-        <small>Refresh for a new look!</small>
-      </div>
-      <div class="example">
-        <h3>Avatar for "username"</h3>
-        <img src="https://api.genavatar.me/username"
-             alt="Avatar for username" />
-        <div class="api"><a href="https://api.genavatar.me/username"
-             target="_blank">https://api.genavatar.me/username</a></div>
-        <small>Same ID, same face every time.</small>
-      </div>
-      <div class="example">
-        <h3>Avatar for "👾user42"</h3>
-        <img src="https://api.genavatar.me/%F0%9F%91%BEuser42"
-             alt="Avatar for user42" />
-        <div class="api"><a href="https://api.genavatar.me/%F0%9F%91%BEuser42"
-             target="_blank">https://api.genavatar.me/👾user42</a></div>
-        <small>Try your own ID!</small>
-      </div>
-    </section>
-    <section class="usecases">
-      <h2>🤔 Use Cases</h2>
-      <ul>
-        <li>Profile pictures for apps, forums, and communities</li>
-        <li>Quick visual identity for users—no sign-up, no tracking</li>
-        <li>Fun placeholders for comments, chat, or guest users</li>
-        <li>API integration for instant avatar generation</li>
-      </ul>
-    </section>
-    <section>
-      <h2>🚀 How to Use</h2>
-      <p>Just use the URL format below. Replace <code>&lt;your-id&gt;</code> with any string you
-        like (username, email, emoji, etc.):</p>
-      <div class="api">https://api.genavatar.me/&lt;your-id&gt;</div>
-      <p>If you skip the ID, you’ll get a new random avatar every time!</p>
-    </section>
-  </div>
-  <footer>
-    <p>Give your users a face — try <a href="https://api.genavatar.me/"
-         target="_blank">api.genavatar.me</a> today!
-    </p>
-    <p><small>Powered by Firebase Functions 🚀</small></p>
-  </footer>
-</body>
 
+  <nav>
+    <span class="nav-logo">genavatar.me</span>
+    <a href="https://api.genavatar.me/" target="_blank" class="btn btn-ghost">Try it live</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Instant avatars<br>for every user</h1>
+      <p class="hero-sub">A single URL gives any string a face — unique, consistent, and always the same for the same ID. No accounts, no keys, no friction.</p>
+      <div class="hero-actions">
+        <a href="#api" class="btn btn-primary">See the API</a>
+        <a href="https://api.genavatar.me/" target="_blank" class="btn btn-outline">Generate one now</a>
+      </div>
+    </div>
+    <div class="hero-avatars" aria-hidden="true">
+      <div class="avatar-cluster">
+        <img src="https://api.genavatar.me/alice" alt="" class="av av-lg">
+        <img src="https://api.genavatar.me/bob" alt="" class="av av-md">
+        <img src="https://api.genavatar.me/carol" alt="" class="av av-sm">
+        <img src="https://api.genavatar.me/dave" alt="" class="av av-md">
+        <img src="https://api.genavatar.me/eve" alt="" class="av av-sm">
+        <img src="https://api.genavatar.me/frank" alt="" class="av av-lg">
+        <img src="https://api.genavatar.me/grace" alt="" class="av av-md">
+        <img src="https://api.genavatar.me/henry" alt="" class="av av-sm">
+      </div>
+    </div>
+  </section>
+
+  <section class="pillars">
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 2L12.09 7.26L18 7.27L13.45 10.77L15.18 16.02L10 12.77L4.82 16.02L6.55 10.77L2 7.27L7.91 7.26L10 2Z" fill="currentColor"/></svg>
+      </div>
+      <h3>Deterministic</h3>
+      <p>The same ID always produces the same avatar. Perfect for user profiles that need to stay consistent across sessions and devices.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 10C3 6.13 6.13 3 10 3s7 3.13 7 7-3.13 7-7 7-7-3.13-7-7zm7-5v5l3.5 2.1-.75 1.23L9 11V5h1z" fill="currentColor"/></svg>
+      </div>
+      <h3>Instant</h3>
+      <p>No generation step on your end. Just reference the URL and the image is served — cache-busted for random, immutable for named IDs.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9zM4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" fill="currentColor"/></svg>
+      </div>
+      <h3>Zero setup</h3>
+      <p>No API key, no sign-up, no SDK. One URL pattern covers every use case — plug it straight into your <code>&lt;img&gt;</code> tag.</p>
+    </div>
+  </section>
+
+  <section class="api-section" id="api">
+    <div class="api-inner">
+      <div class="api-copy">
+        <h2>One URL.<br>Any identity.</h2>
+        <p>Pass any string as the path — a username, an email, a UUID. Get back a PNG. Skip the path for a random avatar every time.</p>
+        <ul class="api-list">
+          <li><span class="tag">Named</span> Same ID → same face, forever</li>
+          <li><span class="tag">Random</span> No path → fresh avatar on every request</li>
+          <li><span class="tag">Any string</span> Unicode, emoji, anything goes</li>
+        </ul>
+      </div>
+      <div class="api-code-block">
+        <div class="code-row">
+          <span class="code-comment"># named — deterministic</span>
+          <code>https://api.genavatar.me/<span class="code-hl">username</span></code>
+        </div>
+        <div class="code-row">
+          <span class="code-comment"># random — new every time</span>
+          <code>https://api.genavatar.me/</code>
+        </div>
+        <div class="code-row">
+          <span class="code-comment"># works in any &lt;img&gt; tag</span>
+          <code>&lt;img src="https://api.genavatar.me/<span class="code-hl">&#123;userId&#125;</span>"&gt;</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="use-cases">
+    <h2>Built for where you need it</h2>
+    <div class="cases-grid">
+      <div class="case">
+        <h4>Comment sections</h4>
+        <p>Give every commenter a face without asking them to upload one.</p>
+      </div>
+      <div class="case">
+        <h4>Chat apps</h4>
+        <p>Default avatars for new users that feel intentional, not generic.</p>
+      </div>
+      <div class="case">
+        <h4>Admin panels</h4>
+        <p>Consistent user thumbnails in tables and lists with zero storage.</p>
+      </div>
+      <div class="case">
+        <h4>Prototypes</h4>
+        <p>Realistic placeholder avatars that make mockups look finished.</p>
+      </div>
+      <div class="case">
+        <h4>Open-source projects</h4>
+        <p>Contributor avatars, bot icons, and service identities on demand.</p>
+      </div>
+      <div class="case">
+        <h4>Anywhere with a URL</h4>
+        <p>Forums, newsletters, dashboards — if you can set an image src, you're done.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Try it right now</h2>
+    <p>Open the URL in a new tab. That's the whole onboarding.</p>
+    <a href="https://api.genavatar.me/" target="_blank" class="btn btn-primary btn-lg">Generate an avatar</a>
+  </section>
+
+  <footer>
+    <span class="footer-logo">genavatar.me</span>
+    <span class="footer-sep">·</span>
+    <span>No tracking. No accounts. Just avatars.</span>
+  </footer>
+
+</body>
 </html>
