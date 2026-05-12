@@ -10,10 +10,10 @@ const firestoreService = getFirestore();
 export const id = onRequest(
   { timeoutSeconds: 5, maxInstances: 5 },
   async (req, res) => {
-    // Remove initial /, limit to 36 chars (length of UUID)
-    const pathId = encodeURIComponent(req.path?.slice(1, 37));
+    // Remove leading /, limit to 36 chars (UUID length), null when path is empty
+    const pathId = encodeURIComponent(req.path?.slice(1, 37)) || null;
 
-    const avatarId = pathId || randomUUID();
+    const avatarId = pathId ?? randomUUID();
     const face = createFace(avatarId);
     const png = await combine(face).png().toBuffer();
     res.setHeader("Content-Type", "image/png");
