@@ -1,4 +1,4 @@
-# functions/
+# functions/ directory
 
 Avatar generation for [genavatar.me](https://genavatar.me). A single Cloud Function receives an HTTP request, composites a PNG from static assets, and returns it.
 
@@ -41,11 +41,11 @@ cp ../.firebaserc.example ../.firebaserc
 
 ## Source
 
-| File | Purpose |
-|---|---|
-| `src/index.ts` | HTTP handler — parses the request path, calls `createFace`, returns PNG |
-| `src/_lib/index.ts` | `createFace(id)` + `combine(face)` — hashing and sharp pipeline |
-| `src/_lib/_img/` | Static PNG assets: `eyes/` (9), `nose/` (8), `mouth/` (8) |
+| File                | Purpose                                                                 |
+| ------------------- | ----------------------------------------------------------------------- |
+| `src/index.ts`      | HTTP handler — parses the request path, calls `createFace`, returns PNG |
+| `src/_lib/index.ts` | `createFace(id)` + `combine(face)` — hashing and sharp pipeline         |
+| `src/_lib/_img/`    | Static PNG assets: `eyes/` (9), `nose/` (8), `mouth/` (8)               |
 
 ## How the pipeline works
 
