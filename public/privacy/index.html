@@ -79,13 +79,15 @@
         <ul>
           <li><strong>The ID</strong> from the URL (e.g. <code>username</code> in
             <code>api.genavatar.me/username</code>). Requests with no ID are logged
-            as <code>random</code>.</li>
+            as <code>random</code>.
+          </li>
           <li><strong>The referring page</strong>, if the browser sent one. That is the URL of
             the page where the avatar is embedded. Left blank if not provided.</li>
           <li><strong>A timestamp.</strong></li>
         </ul>
         <p>No IP address or personal information is stored. Logs are kept for up to
-          <strong>3 months</strong> and then deleted.</p>
+          <strong>3 months</strong> and then deleted.
+        </p>
       </section>
 
       <section>
@@ -99,35 +101,22 @@
       <section>
         <h2>Cookies and tracking</h2>
         <p>No cookies. No ad or analytics scripts. No third-party tracking on
-          <code>genavatar.me</code> or <code>api.genavatar.me</code>.</p>
+          <code>genavatar.me</code> or <code>api.genavatar.me</code>.
+        </p>
       </section>
 
       <section>
         <h2>Hosting</h2>
-        <p>The avatar API runs on <a href="https://workers.cloudflare.com/"
+        <p>Both the API and the landing page are hosted on <a href="https://www.cloudflare.com/"
              target="_blank"
-             rel="noopener">Cloudflare</a>. The landing page is hosted on <a
-             href="https://firebase.google.com/"
+             rel="noopener">Cloudflare</a> (Workers and Pages). Cloudflare has its own data
+          practices: <a href="https://www.cloudflare.com/privacypolicy/"
              target="_blank"
-             rel="noopener">Google Firebase</a>. Both providers have their own data practices:
-          <a href="https://www.cloudflare.com/privacypolicy/"
-             target="_blank"
-             rel="noopener">Cloudflare's privacy policy</a> and <a
-             href="https://policies.google.com/privacy"
-             target="_blank"
-             rel="noopener">Google's privacy policy</a>. We have no access to that data.</p>
+             rel="noopener">Cloudflare's privacy policy</a>. We have no access to that data.</p>
         <p>This page loads fonts from <a href="https://fonts.google.com/"
              target="_blank"
              rel="noopener">Google Fonts</a>, so your browser contacts Google's servers for
           that.</p>
-      </section>
-
-      <section>
-        <h2>Data deletion</h2>
-        <p>Logs are deleted after 3 months. To have a specific ID removed sooner, open an issue
-          on <a href="https://github.com/Accelery/avatars"
-             target="_blank"
-             rel="noopener">GitHub</a>.</p>
       </section>
     </div>
   </main>
