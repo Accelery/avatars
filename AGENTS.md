@@ -2,74 +2,77 @@
 
 ## Repo overview
 
-Static landing page (`public/`) + a single Firebase Function (`functions/`) that generates PNG avatars on demand. No monorepo tooling; the two parts are independent and deployed separately.
+Static landing page (`public/`) + a Cloudflare Worker (`worker/`) that generates PNG avatars on demand. No monorepo tooling; the two parts are independent and deployed separately.
 
 ## Directory layout
 
 ```
-public/          # Landing page (genavatar.me) — plain HTML/CSS, no build step
-functions/       # Firebase Function source (TypeScript, Node 22)
+public/          # Landing page (genavatar.me) - plain HTML/CSS, no build step
+worker/          # Cloudflare Worker source (TypeScript, workerd runtime)
   src/
-    index.ts     # Single exported function: `id`
+    index.ts     # Worker entry point: fetch handler
     _lib/
-      index.ts   # createFace() + combine() using sharp
-      _img/      # SVG/PNG asset files for eyes/, nose/, mouth/
-  lib/           # Compiled output — NOT committed, produced by build
+      index.ts   # createFace() + combine() using @cf-wasm/photon
+      _img/      # PNG asset files for eyes/, nose/, mouth/
+  dist/          # Compiled output - NOT committed, produced by wrangler
+  wrangler.jsonc # Wrangler config - domain, Analytics Engine binding, asset rules
 ```
 
-`functions/public/` (hosting target `api-genavatar`) is produced implicitly by Firebase; rewrites route `**` to the `id` function.
+## Working in `worker/`
 
-## Working in `functions/`
-
-**Package manager: pnpm.** Do not use `npm` — there is no `package-lock.json`. All commands must be run from the `functions/` directory.
+**Package manager: pnpm.** Do not use `npm` - there is no `package-lock.json`. All commands must be run from the `worker/` directory.
 
 ```bash
 # Install
 pnpm install
 
-# Build (clean + tsc + copy image assets to lib/)
-pnpm run build
+# Local dev (wrangler dev server)
+pnpm run dev
 
-# Build is required before deploy; predeploy hook in firebase.json runs it automatically
-pnpm run deploy          # functions only
-firebase deploy --only hosting:landing   # public/ only
-firebase deploy --only hosting:api-genavatar
+# Deploy to Cloudflare Workers
+pnpm run deploy
 ```
 
-**Critical build quirk**: `build` runs `copyfiles src/_lib/_img/**/* lib/_lib/_img -u 3` after `tsc`. The image assets in `src/_lib/_img/` must be copied to `lib/_lib/_img/` or the function will fail at runtime — `tsc` alone is not enough.
+**Asset loading**: PNG images are statically imported as `ArrayBuffer` via Wrangler's `Data` module rule (`wrangler.jsonc` line 7). There is no filesystem access at runtime - assets are bundled into the Worker at deploy time. Do not switch to `fs` or path-based loading.
 
-**pnpm node-linker**: `functions/.npmrc` sets `node-linker=hoisted` so `node_modules` has a flat layout compatible with the Firebase CLI bundler. Do not remove this.
+**Image library**: `@cf-wasm/photon` (the `workerd`-compatible WASM build). `sharp` is explicitly blocked in `pnpm.ignoredBuiltDependencies` and must not be used - it is a Node.js native addon and will not run in the Workers runtime.
 
-**pnpm build scripts**: `sharp`, `protobufjs`, and `re2` are listed in `pnpm.onlyBuiltDependencies` in `package.json`. If adding a new dep that needs a postinstall script, add it there too — pnpm blocks unlisted build scripts by default.
-
-## Local dev
-
-```bash
-# From functions/
-pnpm run serve   # tsc --watch + firebase emulators:start (via concurrently)
-```
-
-Requires Firebase CLI and a project-linked environment (`firebase use`).
+**pnpm build scripts**: `esbuild` and `workerd` are listed in `pnpm.onlyBuiltDependencies`. If adding a new dep that needs a postinstall script, add it there too — pnpm blocks unlisted build scripts by default.
 
 ## TypeScript config
 
-`strict: true`, `noUnusedLocals: true`, `noImplicitReturns: true`. Unused imports/variables are compile errors, not just warnings.
+`strict: true`. The Worker runtime provides its own globals; do not add `@types/node`.
 
-Node version pin: `functions/.nvmrc` → `22`.
+Node version pin: `worker/package.json` `engines.node` → `22` (used for the build toolchain only, not the runtime).
+
+## Analytics
+
+Each request writes one append-only data point to Cloudflare Analytics Engine (binding: `ANALYTICS_ENGINE`, dataset: `analytics_avatars`). Fields written:
+
+- `indexes[0]`: the URL path ID, or `"random"` for path-less requests
+- `blobs[0]`: `Referer` header value, or `""` if absent
+- `blobs[1]`: the avatar ID used for rendering (UUID for random requests)
+
+The write is skipped when `?notrack=true` is present in the request.
 
 ## CI / deployment
 
 Two separate workflows, both trigger on push to `main`:
 
-- `firebase-deploy.yml` — deploys functions when `functions/**` or `firebase.json` changes; uses `pnpm/action-setup` + `FIREBASE_TOKEN` secret.
-- `firebase-hosting.yml` — deploys hosting when `public/**` or `firebase.json` changes; uses `FIREBASE_SERVICE_ACCOUNT_AVATARS_333CB` secret.
+- `worker-deploy.yml` - deploys the worker when `worker/**` changes; uses `CLOUDFLARE_API_TOKEN` secret.
+- `firebase-hosting.yml` - deploys the landing page when `public/**` or `firebase.json` changes; uses `FIREBASE_SERVICE_ACCOUNT_AVATARS_333CB` secret.
 
 No test step in CI. No linting step in CI.
 
 ## Key dependency
 
-`avatars-utils` (npm) provides `filePaths`, `Hash`, `hashFactory`, `sumAndDiff` — the deterministic hashing that makes the same ID always produce the same avatar. If avatar output changes unexpectedly, check this package version.
+The hashing logic (`charCodes`, `sumReduce`, `sumDiffReduce`, `pick`) is inlined in `worker/src/_lib/index.ts` and mirrors the `avatars-utils` npm package. The same ID always produces the same avatar because of this. If avatar output changes unexpectedly, check this logic first.
 
-## No tests
+## Writing style
 
-There are no test files.
+When writing copy for this project (privacy page, landing page, README, etc.):
+
+- No em dashes. Use a regular hyphen or rewrite the sentence.
+- No filler phrases like "of any kind", "it is worth noting", "this ensures that".
+- No AI list padding - if something can be said in one sentence, do not make it a bullet list.
+- Keep sentences short and direct.

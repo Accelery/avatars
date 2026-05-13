@@ -40,8 +40,9 @@ export interface Face {
 
 // ── Hashing ───────────────────────────────────────────────────────────────────
 
+// Safe for non-ASCII because callers pass encodeURIComponent'd strings (ASCII only).
 const charCodes = (s: string): number[] =>
-  s.split("").map((c) => c.charCodeAt(0) || 0);
+  Array.from(s, (c) => c.charCodeAt(0) || 0);
 
 const sumReduce = (a: number[]): number => a.reduce((acc, n) => acc + n, 0);
 const sumDiffReduce = (a: number[]): number =>

@@ -30,40 +30,35 @@ Named avatars are cached for one year (`Cache-Control: public, max-age=31536000,
 
 ```
 public/        # Landing page — static HTML/CSS, no build step
-functions/     # Avatar generation — TypeScript, Node 22
+worker/        # Avatar generation — TypeScript, Cloudflare Workers
   src/
-    index.ts         # HTTP handler (exported as `id`)
+    index.ts         # Fetch handler
     _lib/
-      index.ts       # createFace() + combine() via sharp
+      index.ts       # createFace() + combine() via @cf-wasm/photon
       _img/          # PNG assets: eyes/ nose/ mouth/
+  wrangler.jsonc     # Wrangler config
 ```
 
 ## Development
 
 ```bash
-cp .firebaserc.example .firebaserc   # configure your Firebase project (or any placeholder)
-cd functions
+cd worker
 pnpm install
-pnpm test                            # run unit tests
-pnpm run serve                       # tsc --watch + Firebase emulator
+pnpm run dev      # wrangler dev server
 ```
-
-Requires the [Firebase CLI](https://firebase.google.com/docs/cli). See [CONTRIBUTING.md](CONTRIBUTING.md) for full setup instructions including emulator-only dev (no real Firebase project needed).
 
 ## Deployment
 
 CI deploys automatically on push to `main`:
 
-- `functions/**` changes → deploys the Cloud Function
+- `worker/**` changes → deploys the Cloudflare Worker
 - `public/**` changes → deploys the landing page
 
 To deploy manually:
 
 ```bash
-cd functions
-pnpm run deploy           # function only
-firebase deploy --only hosting:landing
-firebase deploy --only hosting:api-genavatar
+cd worker
+pnpm run deploy
 ```
 
 ## Contributing

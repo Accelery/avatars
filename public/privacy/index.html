@@ -57,86 +57,75 @@
 
       <section>
         <h2>The short version</h2>
-        <p>genavatar.me does not collect, store, or share any personal data. There are no accounts,
-          no cookies, no advertising, and no tracking of any kind. The API does record anonymous
-          usage counters. See below for what that means and how to opt out.</p>
+        <p>No accounts, no cookies, no ads, no personal data. The API logs basic anonymous usage
+          stats. Read on for details, or add <code>?notrack=true</code> to any request to skip
+          logging entirely.</p>
       </section>
 
       <section>
         <h2>What we receive</h2>
-        <p>When you request an avatar, the API receives a standard HTTP request that includes your
-          IP address and the ID string in the URL path. This is a normal part of how the internet
-          works.</p>
+        <p>Every HTTP request carries an IP address and a URL. We have no control over that.</p>
         <ul>
-          <li><strong>IP addresses</strong> are not logged or stored beyond the transient request
-            lifecycle managed by Google Cloud infrastructure.</li>
-          <li><strong>ID strings</strong> (the path you pass to the API) are used to generate the
-            avatar image and are also recorded in the usage log described below.</li>
+          <li><strong>IP addresses</strong> pass through Cloudflare's network and are not stored
+            by us.</li>
+          <li><strong>The ID</strong> (the part after the <code>/</code> in the URL) is used to
+            generate the avatar and shows up in our usage stats.</li>
         </ul>
       </section>
 
       <section>
-        <h2>Usage analytics</h2>
-        <p>Each API request updates an anonymous usage record keyed on the ID string. The following
-          fields are stored:</p>
+        <h2>Usage stats</h2>
+        <p>Each request logs:</p>
         <ul>
-          <li><strong>The ID string</strong> from the URL path (e.g. <code>username</code> in
-            <code>api.genavatar.me/username</code>). Random requests (no path) are recorded under
-            the key <code>random</code>.
-          </li>
-          <li><strong>A request counter</strong>: how many times that ID has been requested.</li>
-          <li><strong>A last-access timestamp.</strong></li>
-          <li><strong>The <code>Referer</code> header</strong>, if present: the URL of the page
-            that embedded the avatar.</li>
+          <li><strong>The ID</strong> from the URL (e.g. <code>username</code> in
+            <code>api.genavatar.me/username</code>). Requests with no ID are logged
+            as <code>random</code>.</li>
+          <li><strong>The referring page</strong>, if the browser sent one. That is the URL of
+            the page where the avatar is embedded. Left blank if not provided.</li>
+          <li><strong>A timestamp.</strong></li>
         </ul>
-        <p>No IP address, user agent, or any other identifying information is stored in these
-          records. This data is only used to understand which IDs are active and how often.</p>
+        <p>No IP address or personal information is stored. Logs are kept for up to
+          <strong>3 months</strong> and then deleted.</p>
+      </section>
+
+      <section>
         <h2>Opting out</h2>
-        <p>You can skip the usage record entirely by appending <code>?notrack=true</code> to any
-          API request:</p>
+        <p>Add <code>?notrack=true</code> to skip logging:</p>
         <p><code>https://api.genavatar.me/<span
                   style="color:var(--accent-hi)">username</span>?notrack=true</code></p>
-        <p>When this parameter is present the avatar is generated and returned as normal, but
-          nothing is written to the usage log.</p>
+        <p>The avatar is still returned, nothing is logged.</p>
       </section>
 
       <section>
-        <h2>Cookies &amp; tracking</h2>
-        <p>We set no cookies. We run no analytics scripts. We use no third-party tracking pixels or
-          SDKs on either <code>genavatar.me</code> or <code>api.genavatar.me</code>.</p>
+        <h2>Cookies and tracking</h2>
+        <p>No cookies. No ad or analytics scripts. No third-party tracking on
+          <code>genavatar.me</code> or <code>api.genavatar.me</code>.</p>
       </section>
 
       <section>
-        <h2>Third-party infrastructure</h2>
+        <h2>Hosting</h2>
         <p>The avatar API runs on <a href="https://workers.cloudflare.com/"
              target="_blank"
-             rel="noopener">Cloudflare Workers</a>. Cloudflare may collect
-          infrastructure-level telemetry as described in <a
-             href="https://www.cloudflare.com/privacypolicy/"
-             target="_blank"
-             rel="noopener">Cloudflare's Privacy Policy</a>. The landing page is hosted on <a
+             rel="noopener">Cloudflare</a>. The landing page is hosted on <a
              href="https://firebase.google.com/"
              target="_blank"
-             rel="noopener">Google Firebase Hosting</a>. Google may collect
-          infrastructure-level telemetry as described in <a
+             rel="noopener">Google Firebase</a>. Both providers have their own data practices:
+          <a href="https://www.cloudflare.com/privacypolicy/"
+             target="_blank"
+             rel="noopener">Cloudflare's privacy policy</a> and <a
              href="https://policies.google.com/privacy"
              target="_blank"
-             rel="noopener">Google's Privacy Policy</a>. We have no access to either provider's data.</p>
-        <p>This landing page loads fonts from <a href="https://fonts.google.com/"
+             rel="noopener">Google's privacy policy</a>. We have no access to that data.</p>
+        <p>This page loads fonts from <a href="https://fonts.google.com/"
              target="_blank"
-             rel="noopener">Google Fonts</a>, which involves a request to Google's servers.</p>
+             rel="noopener">Google Fonts</a>, so your browser contacts Google's servers for
+          that.</p>
       </section>
 
       <section>
-        <h2>Data retention</h2>
-        <p>Usage records (ID string, counter, timestamp, referer) are stored indefinitely but
-          contain no personal data. If you would like a specific ID's record removed, open an issue
-          on GitHub and we will delete it.</p>
-      </section>
-
-      <section>
-        <h2>Contact</h2>
-        <p>Questions? Open an issue on <a href="https://github.com/Accelery/avatars"
+        <h2>Data deletion</h2>
+        <p>Logs are deleted after 3 months. To have a specific ID removed sooner, open an issue
+          on <a href="https://github.com/Accelery/avatars"
              target="_blank"
              rel="noopener">GitHub</a>.</p>
       </section>

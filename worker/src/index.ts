@@ -1,11 +1,7 @@
 import { combine, createFace } from "./_lib";
 
-export interface Env {
-  ANALYTICS_ENGINE: AnalyticsEngineDataset;
-}
-
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  fetch(request: Request, env: Env): Response {
     const url = new URL(request.url);
 
     // Remove leading /, limit to 36 chars (UUID length), null when path is empty
@@ -31,7 +27,7 @@ export default {
         "X-Genavatar-Id": avatarId,
         "Cache-Control": pathId
           ? "public, max-age=31536000, immutable"
-          : "no-store, no-cache, must-revalidate, max-age=0",
+          : "no-store",
       },
     });
   },
