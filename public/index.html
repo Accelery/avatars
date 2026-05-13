@@ -153,7 +153,8 @@
         </svg>
       </div>
       <h3>Deterministic</h3>
-      <p>The same ID always produces the same avatar. User profiles stay consistent across sessions and devices.</p>
+      <p>The same ID always produces the same avatar. User profiles stay consistent across sessions
+        and devices.</p>
     </div>
     <div class="pillar">
       <div class="pillar-icon">
@@ -167,7 +168,8 @@
         </svg>
       </div>
       <h3>Instant</h3>
-      <p>No generation step on your end. Reference the URL and the image is served: cache-busted for random, immutable for named IDs.</p>
+      <p>No generation step on your end. Reference the URL and the image is served: cache-busted for
+        random, immutable for named IDs.</p>
     </div>
     <div class="pillar">
       <div class="pillar-icon">
@@ -191,7 +193,8 @@
     <div class="api-inner">
       <div class="api-copy">
         <h2>One URL.<br>Any identity.</h2>
-        <p>Pass any string as the path: a username, an email, a UUID. You get back a PNG. Skip the path for a random avatar each time.</p>
+        <p>Pass any string as the path: a username, an email, a UUID. You get back a PNG. Skip the
+          path for a random avatar each time.</p>
         <ul class="api-list">
           <li><span class="tag">Named</span> Same ID → same face, forever</li>
           <li><span class="tag">Random</span> No path → fresh avatar on every request</li>
@@ -248,10 +251,17 @@
 
   <section class="cta">
     <h2>Try it right now</h2>
-    <p>Open the URL in a new tab. No setup required.</p>
-    <a href="https://api.genavatar.me/"
-       target="_blank"
-       class="btn btn-primary btn-lg">Generate an avatar</a>
+    <p>Drop it in an <code>&lt;img&gt;</code> tag and you're done.</p>
+    <div class="cta-demo">
+      <img src="https://api.genavatar.me/"
+           class="cta-avatar">
+      <div class="cta-code-block">
+        <code>&lt;img src="https://api.genavatar.me/"&gt;</code>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-lg"
+            onclick="const img=this.previousElementSibling.querySelector('.cta-avatar');img.src='https://api.genavatar.me/?_='+Date.now()">Generate
+      another</button>
   </section>
 
   <footer>

@@ -37,6 +37,7 @@ body {
   color: var(--text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -324,6 +325,7 @@ nav {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  overflow: hidden;
 }
 
 .code-row {
@@ -413,6 +415,37 @@ nav {
   color: var(--text-2);
   font-size: 1rem;
   margin-bottom: 2rem;
+}
+
+/* ── CTA demo ─────────────────────────────────────────────────────── */
+.cta-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 2.5rem 0;
+}
+
+.cta-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: block;
+}
+
+.cta-code-block {
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem 1.25rem;
+  overflow: hidden;
+}
+
+.cta-code-block code {
+  font-size: 0.82rem;
+  color: var(--text);
+  word-break: break-all;
 }
 
 /* ── Footer ───────────────────────────────────────────────────────── */
