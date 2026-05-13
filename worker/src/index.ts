@@ -20,8 +20,8 @@ export default {
     const noTrack = url.searchParams.get("notrack") === "true";
     if (!noTrack) {
       env.ANALYTICS_ENGINE.writeDataPoint({
-        blobs: [request.headers.get("referer") ?? ""],
-        indexes: [avatarId],
+        blobs: [request.headers.get("referer") ?? "", avatarId],
+        indexes: [pathId ?? "random"],
       });
     }
 
