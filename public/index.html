@@ -177,7 +177,9 @@
     <section class="hero">
       <div class="hero-text">
         <h1>Free avatar API for any ID</h1>
-        <p class="hero-sub">Pass a username, email, or UUID. Get a PNG back. Same ID always gets the same face. No signup, no API key. A simple default avatar service you can drop into any <code>&lt;img&gt;</code> tag.</p>
+        <p class="hero-sub">Pass a username, email, or UUID. Get a PNG back. Same ID always gets the
+          same face. No signup, no API key. A simple default avatar service you can drop into any
+          <code>&lt;img&gt;</code> tag.</p>
         <div class="hero-url"
              id="hero-url">
           <code>https://api.genavatar.me/<span class="code-hl">{id}</span></code>
@@ -191,20 +193,20 @@
       <div class="hero-avatars"
            aria-hidden="true">
         <div class="avatar-cluster">
-          <div class="av-wrap"><img src="https://api.genavatar.me/maya@studio.io"
+          <div class="av-wrap"><img src="https://api.genavatar.me/hello@example.com"
                  alt=""
                  width="88"
                  height="88"
                  decoding="async"
                  fetchpriority="high"
-                 class="av av-lg"><span class="av-tooltip">maya@studio.io</span></div>
-          <div class="av-wrap"><img src="https://api.genavatar.me/gh:torvalds"
+                 class="av av-lg"><span class="av-tooltip">hello@example.com</span></div>
+          <div class="av-wrap"><img src="https://api.genavatar.me/gh:kertof"
                  alt=""
                  width="68"
                  height="68"
                  loading="lazy"
                  decoding="async"
-                 class="av av-md"><span class="av-tooltip">gh:torvalds</span></div>
+                 class="av av-md"><span class="av-tooltip">gh:kertof</span></div>
           <div class="av-wrap"><img src="https://api.genavatar.me/usr_8f3a2c"
                  alt=""
                  width="52"
@@ -212,7 +214,8 @@
                  loading="lazy"
                  decoding="async"
                  class="av av-sm"><span class="av-tooltip">usr_8f3a2c</span></div>
-          <div class="av-wrap"><img src="https://api.genavatar.me/550e8400-e29b-41d4-a716-446655440000"
+          <div class="av-wrap"><img
+                 src="https://api.genavatar.me/550e8400-e29b-41d4-a716-446655440000"
                  alt=""
                  width="68"
                  height="68"
@@ -257,8 +260,11 @@
       <div class="api-inner">
         <div class="api-copy">
           <h2 id="api-heading">How the avatar API works</h2>
-          <p>genavatar.me is a free PNG avatar API. Anything after the slash becomes the seed. The same string always maps to the same face, so defaults stay stable for comments, chat, admin lists, and prototypes without storing images.</p>
-          <p class="api-fits">Skip the path for a random avatar on each request. Unicode and emoji IDs are supported. No SDK, no headers, no auth.</p>
+          <p>genavatar.me is a free PNG avatar API. Anything after the slash becomes the seed. The
+            same string always maps to the same face, so defaults stay stable for comments, chat,
+            admin lists, and prototypes without storing images.</p>
+          <p class="api-fits">Skip the path for a random avatar on each request. Unicode and emoji
+            IDs are supported. No SDK, no headers, no auth.</p>
         </div>
         <div class="api-code-block">
           <div class="code-row">
@@ -285,23 +291,29 @@
       <div class="faq-list">
         <details class="faq-item">
           <summary>How do I use the avatar API?</summary>
-          <p>Put <code>https://api.genavatar.me/{id}</code> in an <code>&lt;img&gt;</code> src. Replace <code>{id}</code> with any string such as a username, email, or UUID. No API key or signup.</p>
+          <p>Put <code>https://api.genavatar.me/{id}</code> in an <code>&lt;img&gt;</code> src.
+            Replace <code>{id}</code> with any string such as a username, email, or UUID. No API key
+            or signup.</p>
         </details>
         <details class="faq-item">
           <summary>Is the same ID always the same avatar?</summary>
-          <p>Yes. The same string always produces the same PNG face, so user profiles stay consistent across sessions and devices.</p>
+          <p>Yes. The same string always produces the same PNG face, so user profiles stay
+            consistent across sessions and devices.</p>
         </details>
         <details class="faq-item">
           <summary>How do I get a random avatar?</summary>
-          <p>Request <code>https://api.genavatar.me/</code> with no path. Each request returns a new random face.</p>
+          <p>Request <code>https://api.genavatar.me/</code> with no path. Each request returns a new
+            random face.</p>
         </details>
         <details class="faq-item">
           <summary>Is genavatar.me free?</summary>
-          <p>Yes. Free to use with no accounts, no API keys, and no paid tier required for basic use.</p>
+          <p>Yes. Free to use with no accounts, no API keys, and no paid tier required for basic
+            use.</p>
         </details>
         <details class="faq-item">
           <summary>What can I use as an avatar ID?</summary>
-          <p>Any string works as the path seed: usernames, emails, UUIDs, Unicode, and emoji. The path after the slash is hashed to pick the face.</p>
+          <p>Any string works as the path seed: usernames, emails, UUIDs, Unicode, and emoji. The
+            path after the slash is hashed to pick the face.</p>
         </details>
       </div>
     </section>
