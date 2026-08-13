@@ -8,11 +8,13 @@
 
   <title>Privacy Policy | genavatar.me</title>
   <meta name="description"
-        content="Privacy policy for genavatar.me. No tracking, no accounts, no personal data stored.">
+        content="Privacy policy for genavatar.me. No tracking cookies, no accounts, no personal data stored. Opt out of API usage logs with ?notrack=true.">
   <link rel="canonical"
         href="https://genavatar.me/privacy/">
   <meta name="robots"
         content="index, follow">
+  <meta name="theme-color"
+        content="#0c0d0f">
 
   <!-- Open Graph -->
   <meta property="og:type"
@@ -22,37 +24,72 @@
   <meta property="og:title"
         content="Privacy Policy | genavatar.me">
   <meta property="og:description"
-        content="Privacy policy for genavatar.me. No tracking, no accounts, no personal data stored.">
+        content="Privacy policy for genavatar.me. No tracking cookies, no accounts, no personal data stored.">
+  <meta property="og:image"
+        content="https://genavatar.me/og-image.png">
+  <meta property="og:image:width"
+        content="1200">
+  <meta property="og:image:height"
+        content="630">
+  <meta property="og:image:alt"
+        content="genavatar.me – free PNG avatars from any string">
   <meta property="og:site_name"
         content="genavatar.me">
+  <meta property="og:locale"
+        content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"
+        content="summary_large_image">
+  <meta name="twitter:title"
+        content="Privacy Policy | genavatar.me">
+  <meta name="twitter:description"
+        content="Privacy policy for genavatar.me. No tracking cookies, no accounts, no personal data stored.">
+  <meta name="twitter:image"
+        content="https://genavatar.me/og-image.png">
+  <meta name="twitter:image:alt"
+        content="genavatar.me – free PNG avatars from any string">
 
   <link rel="icon"
         type="image/png"
         href="/favicon.png">
-  <link rel="preconnect"
-        href="https://fonts.googleapis.com">
-  <link rel="preconnect"
-        href="https://fonts.gstatic.com"
+  <link rel="apple-touch-icon"
+        href="/apple-touch-icon.png">
+  <link rel="preload"
+        href="/fonts/ibm-plex-sans-400.woff2"
+        as="font"
+        type="font/woff2"
         crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+  <link rel="preload"
+        href="/fonts/ibm-plex-sans-600.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin>
   <link rel="stylesheet"
         href="/styles.css">
 </head>
 
 <body>
 
-  <nav>
+  <a class="skip-link"
+     href="#main">Skip to content</a>
+
+  <nav aria-label="Primary">
     <a href="/"
        class="nav-logo">genavatar.me</a>
-    <a href="/#try"
-       class="btn btn-primary">Try it</a>
+    <div class="nav-links">
+      <a href="/#api"
+         class="btn btn-outline">API</a>
+      <a href="/#try"
+         class="btn btn-primary">Try it</a>
+    </div>
   </nav>
 
-  <main class="prose-page">
+  <main id="main"
+        class="prose-page">
     <div class="prose-inner">
       <h1>Privacy Policy</h1>
-      <p class="prose-meta">Last updated: May 2026</p>
+      <p class="prose-meta">Last updated: August 2026</p>
 
       <section>
         <h2>The short version</h2>
@@ -112,10 +149,8 @@
           practices: <a href="https://www.cloudflare.com/privacypolicy/"
              target="_blank"
              rel="noopener">Cloudflare's privacy policy</a>. We have no access to that data.</p>
-        <p>This page loads fonts from <a href="https://fonts.google.com/"
-             target="_blank"
-             rel="noopener">Google Fonts</a>, so your browser contacts Google's servers for
-          that.</p>
+        <p>Fonts are self-hosted on this site. Your browser does not contact Google Fonts for
+          these pages.</p>
       </section>
     </div>
   </main>
@@ -123,6 +158,10 @@
   <footer>
     <a href="/"
        class="footer-logo">genavatar.me</a>
+    <span class="footer-sep">·</span>
+    <a href="/">Home</a>
+    <span class="footer-sep">·</span>
+    <a href="/#api">API</a>
   </footer>
 
 </body>

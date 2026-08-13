@@ -6,13 +6,15 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-  <title>genavatar.me – Avatars from any string</title>
+  <title>Free Avatar API – PNG from any ID | genavatar.me</title>
   <meta name="description"
-        content="Turn any ID into a PNG avatar. Same string, same face. Free, no signup, drop into any img tag.">
+        content="Free avatar API: turn any username, email, or UUID into a PNG. Same ID, same face. No signup, no API key. Drop into any img tag. A simple Gravatar-style default without accounts.">
   <link rel="canonical"
         href="https://genavatar.me/">
   <meta name="robots"
         content="index, follow">
+  <meta name="theme-color"
+        content="#0c0d0f">
 
   <!-- Open Graph -->
   <meta property="og:type"
@@ -20,15 +22,17 @@
   <meta property="og:url"
         content="https://genavatar.me/">
   <meta property="og:title"
-        content="genavatar.me – Avatars from any string">
+        content="Free Avatar API – PNG from any ID | genavatar.me">
   <meta property="og:description"
-        content="Turn any ID into a PNG avatar. Same string, same face. Free, no signup, drop into any img tag.">
+        content="Free avatar API: turn any username, email, or UUID into a PNG. Same ID, same face. No signup, no API key. Drop into any img tag.">
   <meta property="og:image"
         content="https://genavatar.me/og-image.png">
   <meta property="og:image:width"
         content="1200">
   <meta property="og:image:height"
         content="630">
+  <meta property="og:image:alt"
+        content="genavatar.me – free PNG avatars from any string">
   <meta property="og:site_name"
         content="genavatar.me">
   <meta property="og:locale"
@@ -38,173 +42,311 @@
   <meta name="twitter:card"
         content="summary_large_image">
   <meta name="twitter:title"
-        content="genavatar.me – Avatars from any string">
+        content="Free Avatar API – PNG from any ID | genavatar.me">
   <meta name="twitter:description"
-        content="Turn any ID into a PNG avatar. Same string, same face. Free, no signup, drop into any img tag.">
+        content="Free avatar API: turn any username, email, or UUID into a PNG. Same ID, same face. No signup, no API key.">
   <meta name="twitter:image"
         content="https://genavatar.me/og-image.png">
+  <meta name="twitter:image:alt"
+        content="genavatar.me – free PNG avatars from any string">
 
   <!-- Structured data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "genavatar.me",
-    "url": "https://genavatar.me/",
-    "description": "Turn any ID into a PNG avatar. Same string, same face. Free, no signup, drop into any img tag.",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://genavatar.me/#website",
+        "name": "genavatar.me",
+        "url": "https://genavatar.me/",
+        "description": "Free avatar API that turns any string into a deterministic PNG avatar.",
+        "publisher": { "@id": "https://genavatar.me/#app" }
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://genavatar.me/#app",
+        "name": "genavatar.me",
+        "url": "https://genavatar.me/",
+        "description": "Free avatar API: turn any username, email, or UUID into a PNG. Same ID, same face. No signup, no API key.",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires a modern web browser with image support",
+        "image": "https://genavatar.me/og-image.png",
+        "featureList": [
+          "Deterministic avatars from any string",
+          "PNG response via a single URL",
+          "No API key or signup",
+          "Random avatars with no path",
+          "Unicode and emoji IDs supported"
+        ],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://genavatar.me/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do I use the avatar API?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Put https://api.genavatar.me/{id} in an img src. Replace {id} with any string such as a username, email, or UUID. No API key or signup is required."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is the same ID always the same avatar?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The same string always produces the same PNG face. Named IDs are stable so user profiles stay consistent across sessions and devices."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I get a random avatar?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Request https://api.genavatar.me/ with no path. Each request returns a new random face."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is genavatar.me free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The API is free to use with no accounts, no API keys, and no paid tier required for basic use."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What can I use as an avatar ID?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Any string works as the path seed, including usernames, emails, UUIDs, Unicode, and emoji. The path after the slash is hashed to pick the face."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
 
   <link rel="icon"
         type="image/png"
         href="/favicon.png">
-  <link rel="preconnect"
-        href="https://fonts.googleapis.com">
-  <link rel="preconnect"
-        href="https://fonts.gstatic.com"
+  <link rel="apple-touch-icon"
+        href="/apple-touch-icon.png">
+  <link rel="preload"
+        href="/fonts/ibm-plex-sans-400.woff2"
+        as="font"
+        type="font/woff2"
         crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+  <link rel="preload"
+        href="/fonts/ibm-plex-sans-600.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin>
   <link rel="stylesheet"
         href="styles.css">
 </head>
 
 <body>
 
-  <nav>
+  <a class="skip-link"
+     href="#main">Skip to content</a>
+
+  <nav aria-label="Primary">
     <a href="/"
        class="nav-logo">genavatar.me</a>
-    <a href="#try"
-       class="btn btn-primary">Try it</a>
+    <div class="nav-links">
+      <a href="#api"
+         class="btn btn-outline">API</a>
+      <a href="#faq"
+         class="btn btn-outline">FAQ</a>
+      <a href="#try"
+         class="btn btn-primary">Try it</a>
+    </div>
   </nav>
 
-  <section class="hero">
-    <div class="hero-text">
-      <h1>Avatars from any string</h1>
-      <p class="hero-sub">Pass a username, email, or UUID. Get a PNG back. Same ID always gets the same face. No signup, no API key.</p>
-      <div class="hero-url"
-           id="hero-url">
-        <code>https://api.genavatar.me/<span class="code-hl">{id}</span></code>
+  <main id="main">
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Free avatar API for any ID</h1>
+        <p class="hero-sub">Pass a username, email, or UUID. Get a PNG back. Same ID always gets the same face. No signup, no API key. A simple default avatar service you can drop into any <code>&lt;img&gt;</code> tag.</p>
+        <div class="hero-url"
+             id="hero-url">
+          <code>https://api.genavatar.me/<span class="code-hl">{id}</span></code>
+          <button type="button"
+                  class="btn btn-primary"
+                  id="copy-url"
+                  data-copy="https://api.genavatar.me/{id}">Copy</button>
+        </div>
+        <p class="hero-hint">That URL is the whole integration. Free to use in production.</p>
+      </div>
+      <div class="hero-avatars"
+           aria-hidden="true">
+        <div class="avatar-cluster">
+          <div class="av-wrap"><img src="https://api.genavatar.me/maya@studio.io"
+                 alt=""
+                 width="88"
+                 height="88"
+                 decoding="async"
+                 fetchpriority="high"
+                 class="av av-lg"><span class="av-tooltip">maya@studio.io</span></div>
+          <div class="av-wrap"><img src="https://api.genavatar.me/gh:torvalds"
+                 alt=""
+                 width="68"
+                 height="68"
+                 loading="lazy"
+                 decoding="async"
+                 class="av av-md"><span class="av-tooltip">gh:torvalds</span></div>
+          <div class="av-wrap"><img src="https://api.genavatar.me/usr_8f3a2c"
+                 alt=""
+                 width="52"
+                 height="52"
+                 loading="lazy"
+                 decoding="async"
+                 class="av av-sm"><span class="av-tooltip">usr_8f3a2c</span></div>
+          <div class="av-wrap"><img src="https://api.genavatar.me/550e8400-e29b-41d4-a716-446655440000"
+                 alt=""
+                 width="68"
+                 height="68"
+                 loading="lazy"
+                 decoding="async"
+                 class="av av-md"><span class="av-tooltip">550e8400-e29b-…</span></div>
+          <div class="av-wrap"><img src="https://api.genavatar.me/ops-bot"
+                 alt=""
+                 width="52"
+                 height="52"
+                 loading="lazy"
+                 decoding="async"
+                 class="av av-sm"><span class="av-tooltip">ops-bot</span></div>
+          <div class="av-wrap"><img src="https://api.genavatar.me/%E6%9D%8E%E6%98%8E"
+                 alt=""
+                 width="88"
+                 height="88"
+                 loading="lazy"
+                 decoding="async"
+                 class="av av-lg"><span class="av-tooltip">李明</span></div>
+          <div class="av-wrap"><img src="https://api.genavatar.me/comment%234421"
+                 alt=""
+                 width="68"
+                 height="68"
+                 loading="lazy"
+                 decoding="async"
+                 class="av av-md"><span class="av-tooltip">comment#4421</span></div>
+          <div class="av-wrap"><img src="https://api.genavatar.me/anon-guest"
+                 alt=""
+                 width="52"
+                 height="52"
+                 loading="lazy"
+                 decoding="async"
+                 class="av av-sm"><span class="av-tooltip">anon-guest</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="api-section"
+             id="api"
+             aria-labelledby="api-heading">
+      <div class="api-inner">
+        <div class="api-copy">
+          <h2 id="api-heading">How the avatar API works</h2>
+          <p>genavatar.me is a free PNG avatar API. Anything after the slash becomes the seed. The same string always maps to the same face, so defaults stay stable for comments, chat, admin lists, and prototypes without storing images.</p>
+          <p class="api-fits">Skip the path for a random avatar on each request. Unicode and emoji IDs are supported. No SDK, no headers, no auth.</p>
+        </div>
+        <div class="api-code-block">
+          <div class="code-row">
+            <span class="code-comment"># same ID → same face</span>
+            <code>https://api.genavatar.me/<span class="code-hl">user@acme.com</span></code>
+          </div>
+          <div class="code-row">
+            <span class="code-comment"># no path → new face every time</span>
+            <code>https://api.genavatar.me/</code>
+          </div>
+          <div class="code-row">
+            <span class="code-comment"># in HTML</span>
+            <code>&lt;img src="https://api.genavatar.me/<span
+                    class="code-hl">&#123;userId&#125;</span>" alt=""&gt;</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq"
+             id="faq"
+             aria-labelledby="faq-heading">
+      <h2 id="faq-heading">FAQ</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>How do I use the avatar API?</summary>
+          <p>Put <code>https://api.genavatar.me/{id}</code> in an <code>&lt;img&gt;</code> src. Replace <code>{id}</code> with any string such as a username, email, or UUID. No API key or signup.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is the same ID always the same avatar?</summary>
+          <p>Yes. The same string always produces the same PNG face, so user profiles stay consistent across sessions and devices.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How do I get a random avatar?</summary>
+          <p>Request <code>https://api.genavatar.me/</code> with no path. Each request returns a new random face.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is genavatar.me free?</summary>
+          <p>Yes. Free to use with no accounts, no API keys, and no paid tier required for basic use.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What can I use as an avatar ID?</summary>
+          <p>Any string works as the path seed: usernames, emails, UUIDs, Unicode, and emoji. The path after the slash is hashed to pick the face.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="cta"
+             id="try"
+             aria-labelledby="try-heading">
+      <h2 id="try-heading">Generate one</h2>
+      <p>Hit the button, or open the URL in a new tab.</p>
+      <div class="cta-demo">
+        <img src="https://api.genavatar.me/"
+             alt="Example random PNG avatar from the genavatar.me API"
+             width="96"
+             height="96"
+             loading="lazy"
+             decoding="async"
+             class="cta-avatar"
+             id="cta-avatar">
+        <div class="cta-code-block">
+          <code id="cta-url">https://api.genavatar.me/</code>
+        </div>
+      </div>
+      <div class="cta-actions">
         <button type="button"
-                class="btn btn-primary"
-                id="copy-url"
-                data-copy="https://api.genavatar.me/{id}">Copy</button>
+                class="btn btn-primary btn-lg"
+                id="generate-btn">Generate another</button>
+        <a href="https://api.genavatar.me/"
+           target="_blank"
+           rel="noopener"
+           class="btn btn-outline btn-lg">Open API</a>
       </div>
-      <p class="hero-hint">Drop that into an <code>&lt;img&gt;</code> src. That is the whole integration.</p>
-    </div>
-    <div class="hero-avatars"
-         aria-hidden="true">
-      <div class="avatar-cluster">
-        <div class="av-wrap"><img src="https://api.genavatar.me/maya@studio.io"
-               alt=""
-               width="88"
-               height="88"
-               class="av av-lg"><span class="av-tooltip">maya@studio.io</span></div>
-        <div class="av-wrap"><img src="https://api.genavatar.me/gh:torvalds"
-               alt=""
-               width="68"
-               height="68"
-               class="av av-md"><span class="av-tooltip">gh:torvalds</span></div>
-        <div class="av-wrap"><img src="https://api.genavatar.me/usr_8f3a2c"
-               alt=""
-               width="52"
-               height="52"
-               class="av av-sm"><span class="av-tooltip">usr_8f3a2c</span></div>
-        <div class="av-wrap"><img src="https://api.genavatar.me/550e8400-e29b-41d4-a716-446655440000"
-               alt=""
-               width="68"
-               height="68"
-               class="av av-md"><span class="av-tooltip">550e8400-e29b-…</span></div>
-        <div class="av-wrap"><img src="https://api.genavatar.me/ops-bot"
-               alt=""
-               width="52"
-               height="52"
-               class="av av-sm"><span class="av-tooltip">ops-bot</span></div>
-        <div class="av-wrap"><img src="https://api.genavatar.me/李明"
-               alt=""
-               width="88"
-               height="88"
-               class="av av-lg"><span class="av-tooltip">李明</span></div>
-        <div class="av-wrap"><img src="https://api.genavatar.me/comment#4421"
-               alt=""
-               width="68"
-               height="68"
-               class="av av-md"><span class="av-tooltip">comment#4421</span></div>
-        <div class="av-wrap"><img src="https://api.genavatar.me/anon-guest"
-               alt=""
-               width="52"
-               height="52"
-               class="av av-sm"><span class="av-tooltip">anon-guest</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="api-section"
-           id="api">
-    <div class="api-inner">
-      <div class="api-copy">
-        <h2>The API is a URL</h2>
-        <p>Anything after the slash becomes the seed. Skip the path for a random face each request. Works with Unicode and emoji.</p>
-        <p class="api-fits">Built for comment threads, chat defaults, admin user lists, and prototypes that need real-looking faces without storage.</p>
-      </div>
-      <div class="api-code-block">
-        <div class="code-row">
-          <span class="code-comment"># same ID → same face</span>
-          <code>https://api.genavatar.me/<span class="code-hl">user@acme.com</span></code>
-        </div>
-        <div class="code-row">
-          <span class="code-comment"># no path → new face every time</span>
-          <code>https://api.genavatar.me/</code>
-        </div>
-        <div class="code-row">
-          <span class="code-comment"># in HTML</span>
-          <code>&lt;img src="https://api.genavatar.me/<span
-                  class="code-hl">&#123;userId&#125;</span>" alt=""&gt;</code>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cta"
-           id="try">
-    <h2>Generate one</h2>
-    <p>Hit the button, or open the URL in a new tab.</p>
-    <div class="cta-demo">
-      <img src="https://api.genavatar.me/"
-           alt="Random generated avatar"
-           width="96"
-           height="96"
-           class="cta-avatar"
-           id="cta-avatar">
-      <div class="cta-code-block">
-        <code id="cta-url">https://api.genavatar.me/</code>
-      </div>
-    </div>
-    <div class="cta-actions">
-      <button type="button"
-              class="btn btn-primary btn-lg"
-              id="generate-btn">Generate another</button>
-      <a href="https://api.genavatar.me/"
-         target="_blank"
-         rel="noopener"
-         class="btn btn-outline btn-lg">Open API</a>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer>
     <a href="/"
        class="footer-logo">genavatar.me</a>
     <span class="footer-sep">·</span>
+    <a href="#api">API</a>
+    <span class="footer-sep">·</span>
+    <a href="#faq">FAQ</a>
+    <span class="footer-sep">·</span>
     <a href="/privacy/">Privacy</a>
     <span class="footer-sep">·</span>
-    <span>Free to use</span>
+    <span>Free avatar API</span>
   </footer>
 
   <script>

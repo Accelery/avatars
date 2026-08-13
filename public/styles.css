@@ -1,3 +1,40 @@
+/* ── Fonts (self-hosted) ──────────────────────────────────────────── */
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-sans-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-sans-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-sans-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-mono-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-mono-500.woff2") format("woff2");
+}
+
 /* ── Accessibility utilities ──────────────────────────────────────── */
 .sr-only {
   position: absolute;
@@ -9,6 +46,22 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--accent);
+  color: #04140e;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.skip-link:focus {
+  top: 1rem;
 }
 
 /* ── Reset & base ─────────────────────────────────────────────────── */
@@ -102,6 +155,12 @@ nav {
   letter-spacing: -0.01em;
   color: var(--text);
   font-family: var(--mono);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 /* ── Hero ─────────────────────────────────────────────────────────── */
@@ -311,6 +370,67 @@ nav {
 
 .code-hl { color: var(--accent-hi); }
 
+/* ── FAQ ──────────────────────────────────────────────────────────── */
+.faq {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.faq h2 {
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.75rem;
+  color: var(--text);
+  text-align: center;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.faq-item {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0;
+  overflow: hidden;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 1rem 1.15rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  float: right;
+  color: var(--text-2);
+  font-weight: 400;
+}
+.faq-item[open] summary::after { content: '–'; }
+
+.faq-item p {
+  padding: 0 1.15rem 1.1rem;
+  color: var(--text-2);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.faq-item code {
+  color: var(--text);
+  font-size: 0.85em;
+}
+
 /* ── CTA ──────────────────────────────────────────────────────────── */
 .cta {
   text-align: center;
@@ -509,6 +629,7 @@ footer a:hover { color: var(--text); }
 
 @media (max-width: 540px) {
   nav { padding: 0.85rem 1.25rem; }
+  .nav-links .btn-outline { display: none; }
   .avatar-cluster { gap: 0.45rem; }
   .hero-url {
     flex-direction: column;
@@ -517,4 +638,5 @@ footer a:hover { color: var(--text); }
     border-radius: 0;
     border-top: 1px solid rgba(0,0,0,0.15);
   }
+  .faq { padding: 3rem 1.25rem; }
 }
