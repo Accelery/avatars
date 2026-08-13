@@ -188,7 +188,7 @@ nav {
 }
 
 .av {
-  border-radius: 50%;
+  border-radius: 28%;
   display: block;
   object-fit: cover;
   border: 1px solid var(--border);
@@ -343,7 +343,7 @@ nav {
 .cta-avatar {
   width: 96px;
   height: 96px;
-  border-radius: 50%;
+  border-radius: 28%;
   border: 1px solid var(--border);
   display: block;
   background: var(--bg-2);
