@@ -1,0 +1,157 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "genavatar.me Avatar API",
+    "version": "1.0.0",
+    "description": "Deterministic avatar API. Turn any username, email, UUID, Unicode string, or emoji into a square PNG.",
+    "contact": {
+      "url": "https://genavatar.me/"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/Accelery/avatars/blob/main/LICENSE"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.genavatar.me"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Avatars",
+      "description": "Generate deterministic or random PNG avatars."
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "getRandomAvatar",
+        "summary": "Get a random avatar",
+        "description": "Returns a new random avatar on each request.",
+        "tags": ["Avatars"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/size"
+          },
+          {
+            "$ref": "#/components/parameters/notrack"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Avatar"
+          }
+        }
+      }
+    },
+    "/{id}": {
+      "get": {
+        "operationId": "getNamedAvatar",
+        "summary": "Get a deterministic avatar",
+        "description": "Returns the same avatar for the same ID. The first 36 characters are used.",
+        "tags": ["Avatars"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Username, email, UUID, Unicode string, or emoji.",
+            "schema": {
+              "type": "string",
+              "maxLength": 36
+            }
+          },
+          {
+            "$ref": "#/components/parameters/size"
+          },
+          {
+            "$ref": "#/components/parameters/notrack"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Avatar"
+          },
+          "404": {
+            "description": "Blocked path."
+          },
+          "405": {
+            "description": "Method other than GET or HEAD."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "size": {
+        "name": "size",
+        "in": "query",
+        "required": false,
+        "description": "Square output size in pixels. Invalid values fall back to 400.",
+        "schema": {
+          "type": "integer",
+          "minimum": 16,
+          "maximum": 400,
+          "default": 400
+        }
+      },
+      "notrack": {
+        "name": "notrack",
+        "in": "query",
+        "required": false,
+        "description": "Set to true to skip usage analytics.",
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "headers": {
+      "X-Genavatar-Id": {
+        "description": "The ID used for the request, or a UUID for random requests.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "X-Genavatar-Size": {
+        "description": "The returned square size in pixels.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "X-Cache-Status": {
+        "description": "Worker cache status.",
+        "schema": {
+          "type": "string",
+          "enum": ["HIT", "MISS"]
+        }
+      }
+    },
+    "responses": {
+      "Avatar": {
+        "description": "A square PNG avatar.",
+        "headers": {
+          "X-Genavatar-Id": {
+            "$ref": "#/components/headers/X-Genavatar-Id"
+          },
+          "X-Genavatar-Size": {
+            "$ref": "#/components/headers/X-Genavatar-Size"
+          },
+          "X-Cache-Status": {
+            "$ref": "#/components/headers/X-Cache-Status"
+          }
+        },
+        "content": {
+          "image/png": {
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          }
+        }
+      }
+    }
+  }
+}

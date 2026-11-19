@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Avatar API Documentation - Size, CORS, Caching | genavatar.me</title>
+  <meta name="description"
+        content="API documentation for genavatar.me: URL format, size, caching, CORS, response headers, errors, and examples.">
+  <link rel="canonical"
+        href="https://genavatar.me/docs/">
+  <meta name="robots"
+        content="index, follow">
+  <meta name="theme-color"
+        content="#0c0d0f">
+
+  <script src="/theme.js"></script>
+
+  <link rel="preconnect"
+        href="https://api.genavatar.me">
+
+  <meta property="og:type"
+        content="article">
+  <meta property="og:url"
+        content="https://genavatar.me/docs/">
+  <meta property="og:title"
+        content="Avatar API Documentation | genavatar.me">
+  <meta property="og:description"
+        content="URL format, size parameter, caching, CORS, response headers, and examples for the genavatar.me avatar API.">
+  <meta property="og:image"
+        content="https://genavatar.me/og-image.png">
+  <meta property="og:image:width"
+        content="1200">
+  <meta property="og:image:height"
+        content="630">
+  <meta property="og:image:alt"
+        content="genavatar.me - free PNG avatars from any string">
+  <meta property="og:site_name"
+        content="genavatar.me">
+  <meta property="og:locale"
+        content="en_US">
+
+  <meta name="twitter:card"
+        content="summary_large_image">
+  <meta name="twitter:title"
+        content="Avatar API Documentation | genavatar.me">
+  <meta name="twitter:description"
+        content="URL format, size parameter, caching, CORS, response headers, and examples for the genavatar.me avatar API.">
+  <meta name="twitter:image"
+        content="https://genavatar.me/og-image.png">
+  <meta name="twitter:image:alt"
+        content="genavatar.me - free PNG avatars from any string">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": "https://genavatar.me/docs/#article",
+        "headline": "Avatar API documentation",
+        "description": "API documentation for genavatar.me: URL format, size, caching, CORS, response headers, errors, and examples.",
+        "url": "https://genavatar.me/docs/",
+        "mainEntityOfPage": "https://genavatar.me/docs/",
+        "author": {
+          "@type": "Organization",
+          "name": "genavatar.me",
+          "url": "https://genavatar.me/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "genavatar.me",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://genavatar.me/apple-touch-icon.png"
+          },
+          "sameAs": ["https://github.com/Accelery/avatars"]
+        },
+        "datePublished": "2026-11-19",
+        "dateModified": "2026-11-19"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://genavatar.me/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "API documentation",
+            "item": "https://genavatar.me/docs/"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon"
+        type="image/png"
+        sizes="64x64"
+        href="/favicon.png">
+  <link rel="apple-touch-icon"
+        sizes="180x180"
+        href="/apple-touch-icon.png">
+  <link rel="preload"
+        href="/fonts/ibm-plex-sans-400.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin>
+  <link rel="preload"
+        href="/fonts/ibm-plex-sans-500.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin>
+  <link rel="preload"
+        href="/fonts/ibm-plex-sans-600.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin>
+  <link rel="stylesheet"
+        href="/styles.css">
+</head>
+
+<body>
+
+  <a class="skip-link"
+     href="#main">Skip to content</a>
+
+  <nav aria-label="Primary">
+    <div class="nav-inner">
+      <a href="/"
+         class="nav-logo">
+        <img src="https://api.genavatar.me/?size=64"
+             alt=""
+             width="28"
+             height="28"
+             decoding="async"
+             class="nav-avatar">
+        <span>Genavatar</span>
+      </a>
+      <div class="nav-links">
+        <a href="/docs/"
+           class="btn btn-outline"
+           aria-current="page">Docs</a>
+        <a href="/guides/"
+           class="btn btn-outline">Guides</a>
+        <a href="/#try"
+           class="btn btn-primary">Try it</a>
+        <button type="button"
+                class="theme-toggle"
+                id="theme-toggle"
+                aria-label="Toggle color theme">
+          <svg class="icon-sun"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2"
+               stroke-linecap="round"
+               aria-hidden="true">
+            <circle cx="12"
+                    cy="12"
+                    r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg class="icon-moon"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2"
+               stroke-linecap="round"
+               stroke-linejoin="round"
+               aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main"
+        class="docs-page prose-page">
+    <div class="docs-layout">
+      <aside class="docs-sidebar"
+             aria-label="Documentation sections">
+        <a href="#quick-start">Quick start</a>
+        <a href="#url-format">URL format</a>
+        <a href="#size">Size</a>
+        <a href="#analytics">Analytics</a>
+        <a href="#caching">Caching</a>
+        <a href="#cors">CORS</a>
+        <a href="#headers">Response headers</a>
+        <a href="#errors">Errors</a>
+        <a href="#examples">Examples</a>
+        <a href="#openapi">OpenAPI</a>
+      </aside>
+
+      <article class="docs-content doc-content">
+        <nav class="breadcrumbs"
+             aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">API documentation</span>
+        </nav>
+        <h1>Avatar API documentation</h1>
+        <p class="prose-meta">One endpoint, deterministic PNG avatars, no account.</p>
+
+        <section id="quick-start">
+          <h2>Quick start</h2>
+          <p>Put an avatar URL in any <code>&lt;img&gt;</code> tag. The string after the slash is the
+            seed.</p>
+          <pre><code>&lt;img
+  src="https://api.genavatar.me/user@example.com?size=128"
+  alt=""
+  width="128"
+  height="128"&gt;</code></pre>
+          <p>The same ID always returns the same face. Omit the path for a random avatar.</p>
+        </section>
+
+        <section id="url-format">
+          <h2>URL format</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Request</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>GET /{id}</code></td>
+                <td>Deterministic avatar for the ID</td>
+              </tr>
+              <tr>
+                <td><code>GET /</code></td>
+                <td>New random avatar on each request</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>IDs can be usernames, emails, UUIDs, Unicode, or emoji. The API uses the first 36
+            characters.</p>
+        </section>
+
+        <section id="size">
+          <h2>Size</h2>
+          <p>Add <code>?size=</code> to request a square PNG from 16 to 400 pixels. The default is
+            400. Invalid values fall back to 400.</p>
+          <pre><code>https://api.genavatar.me/alice?size=64
+https://api.genavatar.me/alice?size=128
+https://api.genavatar.me/?size=192</code></pre>
+          <p>Use a size close to the rendered size. A 64px avatar doesn't need a 400px image.</p>
+        </section>
+
+        <section id="analytics">
+          <h2>Analytics opt out</h2>
+          <p>Add <code>?notrack=true</code> to skip usage analytics. The avatar is still returned.</p>
+          <pre><code>https://api.genavatar.me/alice?notrack=true</code></pre>
+        </section>
+
+        <section id="caching">
+          <h2>Caching</h2>
+          <p>Named avatars use <code>Cache-Control: public, max-age=31536000, immutable</code>.
+            Random avatars use <code>no-store</code> in the browser.</p>
+          <p>The Worker also caches rendered faces per size, so it doesn't draw the same face twice
+            at the same edge location.</p>
+        </section>
+
+        <section id="cors">
+          <h2>CORS</h2>
+          <p>Responses include <code>Access-Control-Allow-Origin: *</code> and expose the avatar
+            headers. Canvas and fetch code can use the images.</p>
+          <pre><code>const res = await fetch("https://api.genavatar.me/alice?size=64");
+const size = res.headers.get("X-Genavatar-Size");
+const blob = await res.blob();</code></pre>
+        </section>
+
+        <section id="headers">
+          <h2>Response headers</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Header</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>Content-Type</code></td>
+                <td><code>image/png</code></td>
+              </tr>
+              <tr>
+                <td><code>X-Genavatar-Id</code></td>
+                <td>The ID used for the request, or a UUID for random requests</td>
+              </tr>
+              <tr>
+                <td><code>X-Genavatar-Size</code></td>
+                <td>The returned square size in pixels</td>
+              </tr>
+              <tr>
+                <td><code>X-Cache-Status</code></td>
+                <td><code>HIT</code> or <code>MISS</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="errors">
+          <h2>Errors</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>404</code></td>
+                <td>Blocked path</td>
+              </tr>
+              <tr>
+                <td><code>405</code></td>
+                <td>Method other than GET or HEAD</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="examples">
+          <h2>Examples</h2>
+          <p>The integration guide has examples for HTML, React, and Next.js.</p>
+          <div class="doc-cta">
+            <p>Need a default avatar for a user profile or comment list?</p>
+            <div class="cta-actions">
+              <a href="/guides/"
+                 class="btn btn-primary">Integration examples</a>
+              <a href="/default-avatar/"
+                 class="btn btn-outline">Default avatar guide</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="openapi">
+          <h2>OpenAPI</h2>
+          <p>The OpenAPI spec is at <a href="/openapi.json">/openapi.json</a>.</p>
+          <p>Related pages: <a href="/gravatar-alternative/">Gravatar alternative</a>,
+            <a href="/random-avatar/">random avatar API</a>, and
+            <a href="/default-avatar/">default avatar URL</a>.</p>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <a href="/"
+       class="footer-logo">genavatar.me</a>
+    <span class="footer-sep">·</span>
+    <a href="/docs/">Docs</a>
+    <span class="footer-sep">·</span>
+    <a href="/guides/">Guides</a>
+    <span class="footer-sep">·</span>
+    <a href="/privacy/">Privacy</a>
+    <span class="footer-sep">·</span>
+    <a href="https://github.com/Accelery/avatars"
+       target="_blank"
+       rel="noopener">GitHub</a>
+  </footer>
+
+</body>
+
+</html>

@@ -512,6 +512,21 @@ nav {
   word-break: break-all;
 }
 
+.reference-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+}
+
+.reference-links a {
+  color: var(--accent-hi);
+  font-weight: 500;
+}
+
+.reference-links a:hover { color: var(--text); }
+
 /* ── FAQ ──────────────────────────────────────────────────────────── */
 .faq {
   max-width: 720px;
@@ -793,6 +808,141 @@ footer a:hover { color: var(--text); }
   font-weight: 500;
 }
 
+/* ── Docs and guides ──────────────────────────────────────────────── */
+.docs-page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 4rem 2rem 5rem;
+}
+
+.docs-layout {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: 3rem;
+  align-items: start;
+}
+
+.docs-sidebar {
+  position: sticky;
+  top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.docs-sidebar a {
+  padding: 0.3rem 0;
+  color: var(--text-2);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.docs-sidebar a:hover { color: var(--text); }
+
+.docs-content {
+  max-width: 68ch;
+}
+
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  color: var(--text-2);
+  font-size: 0.8rem;
+}
+
+.breadcrumbs a {
+  color: var(--text-2);
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover { color: var(--text); }
+
+.breadcrumbs [aria-current="page"] { color: var(--text); }
+
+.doc-content h3 {
+  margin: 1.5rem 0 0.5rem;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.doc-content ol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-top: 0.65rem;
+  padding-left: 1.25rem;
+  color: var(--text-2);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.doc-content pre {
+  margin: 1rem 0;
+  padding: 1rem;
+  overflow-x: auto;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.doc-content pre code {
+  color: var(--text);
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+
+.doc-content :not(pre) > code {
+  color: var(--accent-hi);
+}
+
+.doc-content table {
+  width: 100%;
+  margin: 1rem 0;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.doc-content th,
+.doc-content td {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.doc-content th {
+  background: var(--bg-2);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.doc-content td { color: var(--text-2); }
+
+.doc-callout {
+  margin: 1rem 0;
+  padding: 1rem 1.15rem;
+  background: var(--bg-2);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--text-2);
+}
+
+.doc-cta {
+  margin-top: 2rem;
+  padding: 1.25rem;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.doc-cta p { margin-bottom: 0.75rem; }
+
+.doc-cta .cta-actions { justify-content: flex-start; }
+
 /* ── Responsive ───────────────────────────────────────────────────── */
 @media (max-width: 860px) {
   .nav-inner { padding: 1rem 1.5rem; }
@@ -818,6 +968,16 @@ footer a:hover { color: var(--text); }
   .api-section { padding: 3rem 1.5rem; }
   .reference { padding: 3rem 1.5rem; }
   .reference-list { grid-template-columns: 1fr; }
+  .docs-page { padding: 3rem 1.5rem 4rem; }
+  .docs-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+  .docs-sidebar {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.75rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
   .cta { padding: 3.5rem 1.5rem; }
 }
 

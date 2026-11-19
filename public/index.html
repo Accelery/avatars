@@ -61,12 +61,20 @@
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "Organization",
+        "@id": "https://genavatar.me/#org",
+        "name": "genavatar.me",
+        "url": "https://genavatar.me/",
+        "logo": "https://genavatar.me/apple-touch-icon.png",
+        "sameAs": ["https://github.com/Accelery/avatars"]
+      },
+      {
         "@type": "WebSite",
         "@id": "https://genavatar.me/#website",
         "name": "genavatar.me",
         "url": "https://genavatar.me/",
         "description": "Free avatar API that turns any string into a deterministic PNG avatar.",
-        "publisher": { "@id": "https://genavatar.me/#app" }
+        "publisher": { "@id": "https://genavatar.me/#org" }
       },
       {
         "@type": "WebApplication",
@@ -78,6 +86,8 @@
         "operatingSystem": "Any",
         "browserRequirements": "Requires a modern web browser with image support",
         "image": "https://genavatar.me/og-image.png",
+        "publisher": { "@id": "https://genavatar.me/#org" },
+        "sameAs": ["https://github.com/Accelery/avatars"],
         "featureList": [
           "Deterministic avatars from any string",
           "PNG response via a single URL",
@@ -194,6 +204,8 @@
         <span>Genavatar</span>
       </a>
       <div class="nav-links">
+        <a href="/docs/"
+           class="btn btn-outline">Docs</a>
         <a href="#api"
            class="btn btn-outline">API</a>
         <a href="#faq"
@@ -235,9 +247,8 @@
     <section class="hero">
       <div class="hero-text">
         <h1>Free avatar API for any ID</h1>
-        <p class="hero-sub">Pass a username, email, or UUID. Get a PNG back. Same ID always gets the
-          same face. No signup, no API key. A simple default avatar service you can drop into any
-          <code>&lt;img&gt;</code> tag.</p>
+        <p class="hero-sub">Pass a username, email, or UUID. Get a PNG back. The same ID always gets
+          the same face. No signup or API key. Drop it into any <code>&lt;img&gt;</code> tag.</p>
         <div class="hero-url"
              id="hero-url">
           <code>https://api.genavatar.me/<span class="code-hl">{id}</span></code>
@@ -315,11 +326,11 @@
       <div class="api-inner">
         <div class="api-copy">
           <h2 id="api-heading">How the avatar API works</h2>
-          <p>genavatar.me is a free PNG avatar API. Anything after the slash becomes the seed. The
-            same string always maps to the same face, so defaults stay stable for comments, chat,
-            admin lists, and prototypes without storing images.</p>
-          <p class="api-fits">Skip the path for a random avatar on each request. Unicode and emoji
-            IDs are supported. No SDK, no headers, no auth.</p>
+          <p>genavatar.me is a free PNG avatar API. Anything after the slash becomes the seed, and
+            the same string always maps to the same face. A user keeps the same avatar without you
+            storing an image.</p>
+          <p class="api-fits">Skip the path for a random avatar. Unicode and emoji IDs work too.
+            There is no SDK or auth header.</p>
         </div>
         <div class="api-code-block">
           <div class="code-row">
@@ -376,10 +387,17 @@
           </div>
           <div class="reference-item">
             <dt>CORS</dt>
-            <dd><code>Access-Control-Allow-Origin: *</code> for canvas and fetch use. Avatar
-              headers are exposed.</dd>
+            <dd><code>Access-Control-Allow-Origin: *</code> so canvas and fetch code can use the
+              image. Avatar headers are exposed.</dd>
           </div>
         </dl>
+        <p class="reference-links">
+          <a href="/docs/">Full documentation</a>
+          <a href="/guides/">Integration examples</a>
+          <a href="/random-avatar/">Random avatar API</a>
+          <a href="/default-avatar/">Default avatar URL</a>
+          <a href="/gravatar-alternative/">Gravatar alternative</a>
+        </p>
       </div>
     </section>
 
@@ -411,13 +429,12 @@
         </details>
         <details class="faq-item">
           <summary>Is genavatar.me free?</summary>
-          <p>Yes. Free to use with no accounts, no API keys, and no paid tier required for basic
-            use.</p>
+          <p>Yes. Basic use is free and needs no account or API key.</p>
         </details>
         <details class="faq-item">
           <summary>What can I use as an avatar ID?</summary>
-          <p>Any string works as the path seed: usernames, emails, UUIDs, Unicode, and emoji. The
-            path after the slash is hashed to pick the face.</p>
+          <p>Usernames, emails, UUIDs, Unicode, and emoji all work. The path after the slash is
+            hashed to pick the face.</p>
         </details>
       </div>
     </section>
@@ -474,15 +491,15 @@
     <a href="/"
        class="footer-logo">genavatar.me</a>
     <span class="footer-sep">·</span>
-    <a href="#api">API</a>
+    <a href="/docs/">Docs</a>
     <span class="footer-sep">·</span>
-    <a href="#reference">Reference</a>
-    <span class="footer-sep">·</span>
-    <a href="#faq">FAQ</a>
+    <a href="/guides/">Guides</a>
     <span class="footer-sep">·</span>
     <a href="/privacy/">Privacy</a>
     <span class="footer-sep">·</span>
-    <span>Free avatar API</span>
+    <a href="https://github.com/Accelery/avatars"
+       target="_blank"
+       rel="noopener">GitHub</a>
   </footer>
 
   <script>

@@ -1,0 +1,28 @@
+# genavatar.me
+
+> Deterministic avatar API. Turn any username, email, UUID, Unicode string, or emoji into a square PNG. The same ID always returns the same face.
+
+## API
+
+- Base URL: https://api.genavatar.me
+- Named avatar: `GET https://api.genavatar.me/{id}`
+- Random avatar: `GET https://api.genavatar.me/`
+- Size: `?size=16` to `?size=400`, default `400`
+- Analytics opt out: `?notrack=true`
+- Response: `image/png`
+- CORS: `Access-Control-Allow-Origin: *`
+- Headers: `X-Genavatar-Id`, `X-Genavatar-Size`, `X-Cache-Status`
+
+## Documentation
+
+- API documentation: https://genavatar.me/docs/
+- Integration examples: https://genavatar.me/guides/
+- OpenAPI: https://genavatar.me/openapi.json
+- Gravatar alternative: https://genavatar.me/gravatar-alternative/
+- Random avatar API: https://genavatar.me/random-avatar/
+- Default avatar URL: https://genavatar.me/default-avatar/
+
+## Source
+
+- GitHub: https://github.com/Accelery/avatars
+- License: MIT

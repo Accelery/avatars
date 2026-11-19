@@ -64,7 +64,9 @@ Cloudflare Pages deploys `public/` from this repository. It needs no GitHub Acti
 ## Project structure
 
 ```
-public/          # Landing page: static HTML, CSS, JS, no build step
+public/          # Static site: landing, docs, guides, privacy
+  docs/          # API documentation
+  guides/        # HTML, React, Next.js examples
   theme.js       # Light/dark theme toggle
 worker/          # Avatar API: TypeScript, workerd runtime
   src/

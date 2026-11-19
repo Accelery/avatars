@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Gravatar Alternative Without an Account | genavatar.me</title>
+  <meta name="description"
+        content="A free Gravatar alternative with no signup, no API key, and deterministic avatars from any username, email, or UUID.">
+  <link rel="canonical"
+        href="https://genavatar.me/gravatar-alternative/">
+  <meta name="robots"
+        content="index, follow">
+  <meta name="theme-color"
+        content="#0c0d0f">
+
+  <script src="/theme.js"></script>
+
+  <link rel="preconnect"
+        href="https://api.genavatar.me">
+
+  <meta property="og:type"
+        content="article">
+  <meta property="og:url"
+        content="https://genavatar.me/gravatar-alternative/">
+  <meta property="og:title"
+        content="Gravatar Alternative Without an Account | genavatar.me">
+  <meta property="og:description"
+        content="Use deterministic avatars from any username, email, or UUID. No signup and no API key.">
+  <meta property="og:image"
+        content="https://genavatar.me/og-image.png">
+  <meta property="og:image:width"
+        content="1200">
+  <meta property="og:image:height"
+        content="630">
+  <meta property="og:image:alt"
+        content="genavatar.me - free PNG avatars from any string">
+  <meta property="og:site_name"
+        content="genavatar.me">
+  <meta property="og:locale"
+        content="en_US">
+
+  <meta name="twitter:card"
+        content="summary_large_image">
+  <meta name="twitter:title"
+        content="Gravatar Alternative Without an Account | genavatar.me">
+  <meta name="twitter:description"
+        content="Use deterministic avatars from any username, email, or UUID. No signup and no API key.">
+  <meta name="twitter:image"
+        content="https://genavatar.me/og-image.png">
+  <meta name="twitter:image:alt"
+        content="genavatar.me - free PNG avatars from any string">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://genavatar.me/gravatar-alternative/#page",
+        "url": "https://genavatar.me/gravatar-alternative/",
+        "name": "Gravatar alternative without an account",
+        "description": "A free Gravatar alternative with no signup, no API key, and deterministic avatars from any username, email, or UUID.",
+        "isPartOf": { "@id": "https://genavatar.me/#website" },
+        "publisher": {
+          "@type": "Organization",
+          "name": "genavatar.me",
+          "url": "https://genavatar.me/",
+          "sameAs": ["https://github.com/Accelery/avatars"]
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://genavatar.me/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Gravatar alternative",
+            "item": "https://genavatar.me/gravatar-alternative/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is genavatar a drop-in Gravatar replacement?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not exactly. Gravatar uses email hashes in its URL format. genavatar uses the path as the ID, so you replace the URL and choose the same identifier you already use for the user."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does genavatar require an email address?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Any string works, including usernames, UUIDs, email addresses, Unicode, and emoji."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are the avatars unique?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "There are 5,184 combinations of color, eyes, nose, and mouth. Different IDs can share a face, but the same ID always gets the same one."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon"
+        type="image/png"
+        sizes="64x64"
+        href="/favicon.png">
+  <link rel="apple-touch-icon"
+        sizes="180x180"
+        href="/apple-touch-icon.png">
+  <link rel="preload"
+        href="/fonts/ibm-plex-sans-400.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin>
+  <link rel="preload"
+        href="/fonts/ibm-plex-sans-500.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin>
+  <link rel="preload"
+        href="/fonts/ibm-plex-sans-600.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin>
+  <link rel="stylesheet"
+        href="/styles.css">
+</head>
+
+<body>
+
+  <a class="skip-link"
+     href="#main">Skip to content</a>
+
+  <nav aria-label="Primary">
+    <div class="nav-inner">
+      <a href="/"
+         class="nav-logo">
+        <img src="https://api.genavatar.me/?size=64"
+             alt=""
+             width="28"
+             height="28"
+             decoding="async"
+             class="nav-avatar">
+        <span>Genavatar</span>
+      </a>
+      <div class="nav-links">
+        <a href="/docs/"
+           class="btn btn-outline">Docs</a>
+        <a href="/guides/"
+           class="btn btn-outline">Guides</a>
+        <a href="/#try"
+           class="btn btn-primary">Try it</a>
+        <button type="button"
+                class="theme-toggle"
+                id="theme-toggle"
+                aria-label="Toggle color theme">
+          <svg class="icon-sun"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2"
+               stroke-linecap="round"
+               aria-hidden="true">
+            <circle cx="12"
+                    cy="12"
+                    r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg class="icon-moon"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2"
+               stroke-linecap="round"
+               stroke-linejoin="round"
+               aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main"
+        class="prose-page">
+    <div class="prose-inner doc-content">
+      <nav class="breadcrumbs"
+           aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Gravatar alternative</span>
+      </nav>
+      <h1>A Gravatar alternative without an account</h1>
+      <p class="prose-meta">Deterministic avatars from any ID, with no signup and no API key.</p>
+
+      <section>
+        <h2>Why use genavatar instead of Gravatar?</h2>
+        <p>Gravatar works well when users already have a Gravatar account. genavatar is for the
+          default avatar case: a user has no uploaded image, and you need a stable face from an ID
+          you already have.</p>
+        <p>No account or email hash is involved, and you don't upload an image. Put a username,
+          email, UUID, or any other string in the URL.</p>
+      </section>
+
+      <section>
+        <h2>How they compare</h2>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Gravatar</th>
+              <th>genavatar.me</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Account</td>
+              <td>Required for a custom avatar</td>
+              <td>None</td>
+            </tr>
+            <tr>
+              <td>Identifier</td>
+              <td>Email address hash</td>
+              <td>Any string in the path</td>
+            </tr>
+            <tr>
+              <td>Custom image</td>
+              <td>Uploaded by the user</td>
+              <td>Generated from the ID</td>
+            </tr>
+            <tr>
+              <td>Default behavior</td>
+              <td>Fallback style or generated default</td>
+              <td>Deterministic face</td>
+            </tr>
+            <tr>
+              <td>Size parameter</td>
+              <td><code>s</code></td>
+              <td><code>size</code>, 16 to 400</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Switch the image URL</h2>
+        <p>Replace the Gravatar URL with a genavatar URL. Use the same user identifier you already
+          store.</p>
+        <pre><code>&lt;!-- Before: email hash URL --&gt;
+&lt;img src="https://gravatar.com/avatar/HASH?s=96" alt="" width="48" height="48"&gt;
+
+&lt;!-- After: username, email, or UUID --&gt;
+&lt;img
+  src="https://api.genavatar.me/user@example.com?size=96"
+  alt=""
+  width="48"
+  height="48"&gt;</code></pre>
+      </section>
+
+      <section>
+        <h2>Migration notes</h2>
+        <ul>
+          <li>Use a stable identifier. A username or UUID is usually better than an email address
+            because users can change email.</li>
+          <li>The same ID always maps to the same face, so profile images stay consistent.</li>
+          <li>Request the size you render. Use <code>?size=96</code> for a 48px avatar at 2x.</li>
+          <li>Add <code>?notrack=true</code> if you don't want usage analytics.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>FAQ</h2>
+        <h3>Is genavatar a drop-in Gravatar replacement?</h3>
+        <p>Not exactly. Gravatar uses email hashes in its URL format. genavatar uses the path as the
+          ID, so you replace the URL and choose the same identifier you already use for the user.</p>
+        <h3>Does genavatar require an email address?</h3>
+        <p>No. Any string works, including usernames, UUIDs, email addresses, Unicode, and
+          emoji.</p>
+        <h3>Are the avatars unique?</h3>
+        <p>There are 5,184 combinations of color, eyes, nose, and mouth. Different IDs can share a
+          face, but the same ID always gets the same one.</p>
+      </section>
+
+      <div class="doc-cta">
+        <p>Read the API documentation or try an avatar.</p>
+        <div class="cta-actions">
+          <a href="/docs/"
+             class="btn btn-primary">API documentation</a>
+          <a href="/#try"
+             class="btn btn-outline">Try it</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <a href="/"
+       class="footer-logo">genavatar.me</a>
+    <span class="footer-sep">·</span>
+    <a href="/docs/">Docs</a>
+    <span class="footer-sep">·</span>
+    <a href="/guides/">Guides</a>
+    <span class="footer-sep">·</span>
+    <a href="/privacy/">Privacy</a>
+    <span class="footer-sep">·</span>
+    <a href="https://github.com/Accelery/avatars"
+       target="_blank"
+       rel="noopener">GitHub</a>
+  </footer>
+
+</body>
+
+</html>

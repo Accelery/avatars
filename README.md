@@ -24,6 +24,8 @@ Add `?size=128` for a smaller square PNG. Sizes from 16 to 400 pixels are suppor
 
 Add `?notrack=true` to skip usage analytics for a request.
 
+Full documentation: https://genavatar.me/docs/
+
 ## How it works
 
 Each avatar is composed of eyes, a nose, a mouth, and a background color. The combination is derived deterministically from the input string, so the same ID always maps to the same face.
@@ -35,8 +37,12 @@ The landing page includes a light/dark theme toggle. It follows the system prefe
 ## Repository layout
 
 ```
-public/        # Landing page (genavatar.me): static HTML, CSS, JS, no build step
+public/        # Static site: landing, docs, guides, privacy
+  docs/        # API documentation
+  guides/      # HTML, React, Next.js examples
   theme.js     # Light/dark theme toggle
+  openapi.json # Machine-readable API spec
+  llms.txt     # API summary for AI tools
 worker/        # Avatar API (api.genavatar.me): TypeScript, Cloudflare Workers
   src/
     index.ts         # Fetch handler, caching, analytics

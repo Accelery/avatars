@@ -7,11 +7,18 @@ Static site in `public/` plus a Cloudflare Worker in `worker/` that generates PN
 ## Directory layout
 
 ```
-public/                     # Landing page (genavatar.me): HTML, CSS, theme.js
-  index.html
-  privacy/index.html
+public/                     # Static site: landing, docs, guides, privacy
+  docs/                     # API documentation
+  guides/                   # HTML, React, Next.js examples
+  gravatar-alternative/
+  random-avatar/
+  default-avatar/
   styles.css
   theme.js                  # Light/dark theme toggle, no build step
+  openapi.json              # Machine-readable API spec
+  llms.txt                  # API summary for AI tools
+  _headers                  # Cloudflare Pages security and cache headers
+  404.html
 worker/                     # Avatar API (api.genavatar.me): TypeScript, workerd
   src/
     index.ts                # Fetch handler, caching, analytics
