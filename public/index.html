@@ -184,7 +184,15 @@
   <nav aria-label="Primary">
     <div class="nav-inner">
       <a href="/"
-         class="nav-logo">Genavatar</a>
+         class="nav-logo">
+        <img src="https://api.genavatar.me/?size=64"
+             alt=""
+             width="28"
+             height="28"
+             decoding="async"
+             class="nav-avatar">
+        <span>Genavatar</span>
+      </a>
       <div class="nav-links">
         <a href="#api"
            class="btn btn-outline">API</a>
@@ -367,17 +375,9 @@
               <code>X-Genavatar-Size</code>.</dd>
           </div>
           <div class="reference-item">
-            <dt>Caching</dt>
-            <dd>Named IDs are immutable for one year. Random requests use <code>no-store</code>.</dd>
-          </div>
-          <div class="reference-item">
             <dt>CORS</dt>
             <dd><code>Access-Control-Allow-Origin: *</code> for canvas and fetch use. Avatar
               headers are exposed.</dd>
-          </div>
-          <div class="reference-item">
-            <dt>Errors</dt>
-            <dd><code>404</code> for blocked paths. <code>405</code> for other methods.</dd>
           </div>
         </dl>
       </div>
@@ -532,7 +532,7 @@
         showAvatar(
           displayUrl + '&_=' + Date.now(),
           displayUrl,
-          'Random avatar generated.',
+          '',
           'Example random PNG avatar from the genavatar.me API'
         );
       }
