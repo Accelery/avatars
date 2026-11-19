@@ -20,6 +20,8 @@ Pass any string as the path and get back a PNG. The same ID always produces the 
 
 No API key. No SDK. No sign-up.
 
+Add `?size=128` for a smaller square PNG. Sizes from 16 to 400 pixels are supported. The default is 400, and invalid values fall back to 400.
+
 Add `?notrack=true` to skip usage analytics for a request.
 
 ## How it works

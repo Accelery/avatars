@@ -1,4 +1,9 @@
-import { PhotonImage, watermark } from "@cf-wasm/photon/workerd";
+import {
+  PhotonImage,
+  SamplingFilter,
+  resize,
+  watermark,
+} from "@cf-wasm/photon/workerd";
 
 // ── Asset imports (ArrayBuffer via Wrangler Data rule) ────────────────────────
 // Array order is part of each avatar's identity. Append assets; never reorder.
@@ -139,14 +144,15 @@ const hexToRgb = (hex: string): [number, number, number] => {
   return [(n >> 16) & 0xff, (n >> 8) & 0xff, n & 0xff];
 };
 
-const IMAGE_WIDTH = 400;
-const IMAGE_HEIGHT = 400;
+export const MAX_AVATAR_SIZE = 400;
+const IMAGE_WIDTH = MAX_AVATAR_SIZE;
+const IMAGE_HEIGHT = MAX_AVATAR_SIZE;
 
 /**
  * Composite eyes + mouth + nose onto a solid background and return PNG bytes.
  * All PhotonImage instances are explicitly freed to avoid WASM memory leaks.
  */
-export const combine = (face: Face): Uint8Array => {
+export const combine = (face: Face, size: number): Uint8Array => {
   const [r, g, b] = hexToRgb(face.color);
 
   // Pack one RGBA pixel using native endianness, then fill the background.
@@ -172,7 +178,16 @@ export const combine = (face: Face): Uint8Array => {
     watermark(bg, mouth, BigInt(0), BigInt(0));
     watermark(bg, nose, BigInt(0), BigInt(0));
 
-    return bg.get_bytes();
+    if (size === IMAGE_WIDTH) {
+      return bg.get_bytes();
+    }
+
+    const resized = resize(bg, size, size, SamplingFilter.Lanczos3);
+    try {
+      return resized.get_bytes();
+    } finally {
+      resized.free();
+    }
   } finally {
     bg.free();
     eyes?.free();

@@ -103,6 +103,14 @@ body {
 
 a { color: inherit; text-decoration: none; }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--accent-hi);
+  outline-offset: 2px;
+}
+
 code {
   font-family: var(--mono);
   font-size: 0.9em;
@@ -156,7 +164,9 @@ nav {
 .faq-item,
 .hero-url,
 .api-code-block,
-.cta-code-block {
+.cta-code-block,
+.reference-item,
+.try-row input {
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
@@ -202,11 +212,6 @@ nav {
 .theme-toggle:hover {
   border-color: var(--border-hover);
   background: var(--surface-hover);
-}
-
-.theme-toggle:focus-visible {
-  outline: 2px solid var(--accent-hi);
-  outline-offset: 2px;
 }
 
 .theme-toggle svg {
@@ -281,6 +286,11 @@ nav {
   margin-top: 0.85rem;
   font-size: 0.85rem;
   color: var(--text-2);
+}
+
+.copy-status {
+  color: var(--accent-hi);
+  font-weight: 500;
 }
 
 .hero-hint code {
@@ -426,6 +436,69 @@ nav {
 
 .code-hl { color: var(--accent-hi); }
 
+/* ── API reference ────────────────────────────────────────────────── */
+.reference {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.reference h2 {
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.reference-intro {
+  margin-top: 0.85rem;
+  max-width: 60ch;
+  color: var(--text-2);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.reference-intro code {
+  color: var(--accent-hi);
+}
+
+.reference-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.reference-item {
+  padding: 1rem 1.15rem;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.reference-item dt {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.reference-item dd {
+  margin-top: 0.35rem;
+  color: var(--text-2);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.reference-item code {
+  color: var(--accent-hi);
+  font-size: 0.85em;
+  word-break: break-all;
+}
+
 /* ── FAQ ──────────────────────────────────────────────────────────── */
 .faq {
   max-width: 720px;
@@ -508,12 +581,61 @@ nav {
   margin-bottom: 0.5rem;
 }
 
+.try-form {
+  max-width: 34rem;
+  margin: 1.75rem auto 0;
+  text-align: left;
+}
+
+.try-form label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-2);
+}
+
+.try-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.try-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+  background: var(--bg-3);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.try-row input::placeholder {
+  color: var(--text-2);
+  opacity: 1;
+}
+
+.try-row .btn {
+  flex-shrink: 0;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.try-status {
+  min-height: 1.2em;
+  margin-top: 0.85rem;
+  color: var(--text-2);
+  font-size: 0.8rem;
+}
+
 .cta-demo {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  margin: 2rem 0 1.5rem;
+  margin: 1.75rem 0 1.5rem;
 }
 
 .cta-avatar {
@@ -681,6 +803,8 @@ footer a:hover { color: var(--text); }
   }
   .api-copy p { max-width: 100%; }
   .api-section { padding: 3rem 1.5rem; }
+  .reference { padding: 3rem 1.5rem; }
+  .reference-list { grid-template-columns: 1fr; }
   .cta { padding: 3.5rem 1.5rem; }
 }
 
@@ -695,6 +819,8 @@ footer a:hover { color: var(--text); }
     border-radius: 0;
     border-top: 1px solid var(--border);
   }
+  .try-row { flex-direction: column; }
+  .try-row .btn { width: 100%; }
   .faq { padding: 3rem 1.25rem; }
 }
 

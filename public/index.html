@@ -8,7 +8,7 @@
 
   <title>Free Avatar API – PNG from any ID | genavatar.me</title>
   <meta name="description"
-        content="Free avatar API: turn any username, email, or UUID into a PNG. Same ID, same face. No signup, no API key. Drop into any img tag. A simple Gravatar-style default without accounts.">
+        content="Free avatar API: turn any username, email, or UUID into a deterministic PNG from 16 to 400px. Same ID, same face. No signup or API key.">
   <link rel="canonical"
         href="https://genavatar.me/">
   <meta name="robots"
@@ -83,6 +83,7 @@
           "PNG response via a single URL",
           "No API key or signup",
           "Random avatars with no path",
+          "Square PNG sizes from 16 to 400 pixels",
           "Unicode and emoji IDs supported"
         ],
         "offers": {
@@ -121,6 +122,14 @@
           },
           {
             "@type": "Question",
+            "name": "Can I choose the avatar size?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Add ?size=128 to any avatar URL. Sizes from 16 to 400 pixels are supported. The default is 400, and invalid values fall back to 400."
+            }
+          },
+          {
+            "@type": "Question",
             "name": "Is genavatar.me free?",
             "acceptedAnswer": {
               "@type": "Answer",
@@ -143,11 +152,18 @@
 
   <link rel="icon"
         type="image/png"
+        sizes="64x64"
         href="/favicon.png">
   <link rel="apple-touch-icon"
+        sizes="180x180"
         href="/apple-touch-icon.png">
   <link rel="preload"
         href="/fonts/ibm-plex-sans-400.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin>
+  <link rel="preload"
+        href="/fonts/ibm-plex-sans-500.woff2"
         as="font"
         type="font/woff2"
         crossorigin>
@@ -222,56 +238,60 @@
                   id="copy-url"
                   data-copy="https://api.genavatar.me/{id}">Copy</button>
         </div>
-        <p class="hero-hint">That URL is the whole integration. Free to use in production.</p>
+        <p class="hero-hint">That URL is the whole integration. Free to use in production.
+          <span class="copy-status"
+                id="copy-status"
+                role="status"
+                aria-live="polite"></span></p>
       </div>
       <div class="hero-avatars"
            aria-hidden="true">
         <div class="avatar-cluster">
-          <div class="av-wrap"><img src="https://api.genavatar.me/hello@example.com"
+          <div class="av-wrap"><img src="https://api.genavatar.me/hello@example.com?size=128"
                  alt=""
                  width="88"
                  height="88"
                  decoding="async"
                  fetchpriority="high"
                  class="av av-lg"><span class="av-tooltip">hello@example.com</span></div>
-          <div class="av-wrap"><img src="https://api.genavatar.me/gh:kertof"
+          <div class="av-wrap"><img src="https://api.genavatar.me/gh:kertof?size=128"
                  alt=""
                  width="68"
                  height="68"
                  decoding="async"
                  class="av av-md"><span class="av-tooltip">gh:kertof</span></div>
-          <div class="av-wrap"><img src="https://api.genavatar.me/usr_8f3a2c"
+          <div class="av-wrap"><img src="https://api.genavatar.me/usr_8f3a2c?size=128"
                  alt=""
                  width="52"
                  height="52"
                  decoding="async"
                  class="av av-sm"><span class="av-tooltip">usr_8f3a2c</span></div>
           <div class="av-wrap"><img
-                 src="https://api.genavatar.me/550e8400-e29b-41d4-a716-446655440000"
+                 src="https://api.genavatar.me/550e8400-e29b-41d4-a716-446655440000?size=128"
                  alt=""
                  width="68"
                  height="68"
                  decoding="async"
                  class="av av-md"><span class="av-tooltip">550e8400-e29b-…</span></div>
-          <div class="av-wrap"><img src="https://api.genavatar.me/ops-bot"
+          <div class="av-wrap"><img src="https://api.genavatar.me/ops-bot?size=128"
                  alt=""
                  width="52"
                  height="52"
                  decoding="async"
                  class="av av-sm"><span class="av-tooltip">ops-bot</span></div>
-          <div class="av-wrap"><img src="https://api.genavatar.me/%E6%9D%8E%E6%98%8E"
+          <div class="av-wrap"><img src="https://api.genavatar.me/%E6%9D%8E%E6%98%8E?size=128"
                  alt=""
                  width="88"
                  height="88"
                  decoding="async"
                  class="av av-lg"><span class="av-tooltip">李明</span></div>
-          <div class="av-wrap"><img src="https://api.genavatar.me/comment%234421"
+          <div class="av-wrap"><img src="https://api.genavatar.me/comment%234421?size=128"
                  alt=""
                  width="68"
                  height="68"
                  decoding="async"
                  class="av av-md"><span class="av-tooltip">comment#4421</span></div>
-          <div class="av-wrap"><img src="https://api.genavatar.me/anon-guest"
+          <div class="av-wrap"><img src="https://api.genavatar.me/anon-guest?size=128"
                  alt=""
                  width="52"
                  height="52"
@@ -303,11 +323,63 @@
             <code>https://api.genavatar.me/</code>
           </div>
           <div class="code-row">
+            <span class="code-comment"># choose a size</span>
+            <code>https://api.genavatar.me/<span class="code-hl">user@acme.com</span>?size=128</code>
+          </div>
+          <div class="code-row">
             <span class="code-comment"># in HTML</span>
             <code>&lt;img src="https://api.genavatar.me/<span
-                    class="code-hl">&#123;userId&#125;</span>" alt=""&gt;</code>
+                    class="code-hl">&#123;userId&#125;</span>?size=128" alt=""&gt;</code>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="reference"
+             id="reference"
+             aria-labelledby="reference-heading">
+      <div class="reference-inner">
+        <h2 id="reference-heading">API reference</h2>
+        <p class="reference-intro">All requests use GET or HEAD and return a square PNG. Add
+          <code>?size=</code> to any URL for a different output size.</p>
+        <dl class="reference-list">
+          <div class="reference-item">
+            <dt>Named avatar</dt>
+            <dd><code>GET https://api.genavatar.me/{id}</code> The ID can be up to 36
+              characters.</dd>
+          </div>
+          <div class="reference-item">
+            <dt>Random avatar</dt>
+            <dd><code>GET https://api.genavatar.me/</code></dd>
+          </div>
+          <div class="reference-item">
+            <dt>Size</dt>
+            <dd><code>?size=128</code> Integer from 16 to 400. Default is 400. Invalid values fall
+              back to 400.</dd>
+          </div>
+          <div class="reference-item">
+            <dt>Analytics</dt>
+            <dd><code>?notrack=true</code> Skips usage analytics.</dd>
+          </div>
+          <div class="reference-item">
+            <dt>Response</dt>
+            <dd><code>image/png</code> with <code>X-Genavatar-Id</code> and
+              <code>X-Genavatar-Size</code>.</dd>
+          </div>
+          <div class="reference-item">
+            <dt>Caching</dt>
+            <dd>Named IDs are immutable for one year. Random requests use <code>no-store</code>.</dd>
+          </div>
+          <div class="reference-item">
+            <dt>CORS</dt>
+            <dd><code>Access-Control-Allow-Origin: *</code> for canvas and fetch use. Avatar
+              headers are exposed.</dd>
+          </div>
+          <div class="reference-item">
+            <dt>Errors</dt>
+            <dd><code>404</code> for blocked paths. <code>405</code> for other methods.</dd>
+          </div>
+        </dl>
       </div>
     </section>
 
@@ -333,6 +405,11 @@
             random face.</p>
         </details>
         <details class="faq-item">
+          <summary>Can I choose the avatar size?</summary>
+          <p>Add <code>?size=128</code> to any URL. Sizes from 16 to 400 pixels are supported. The
+            default is 400, and invalid values fall back to 400.</p>
+        </details>
+        <details class="faq-item">
           <summary>Is genavatar.me free?</summary>
           <p>Yes. Free to use with no accounts, no API keys, and no paid tier required for basic
             use.</p>
@@ -349,9 +426,23 @@
              id="try"
              aria-labelledby="try-heading">
       <h2 id="try-heading">Generate one</h2>
-      <p>Hit the button, or open the URL in a new tab.</p>
+      <p>Type an ID to preview its avatar, or generate a random one.</p>
+      <form class="try-form"
+            id="try-form">
+        <label for="try-id">Avatar ID</label>
+        <div class="try-row">
+          <input id="try-id"
+                 name="id"
+                 type="text"
+                 placeholder="username, email, or UUID"
+                 autocomplete="off"
+                 spellcheck="false">
+          <button type="submit"
+                  class="btn btn-primary">Preview</button>
+        </div>
+      </form>
       <div class="cta-demo">
-        <img src="https://api.genavatar.me/"
+        <img src="https://api.genavatar.me/?size=192"
              alt="Example random PNG avatar from the genavatar.me API"
              width="96"
              height="96"
@@ -360,18 +451,22 @@
              class="cta-avatar"
              id="cta-avatar">
         <div class="cta-code-block">
-          <code id="cta-url">https://api.genavatar.me/</code>
+          <code id="cta-url">https://api.genavatar.me/?size=192</code>
         </div>
       </div>
       <div class="cta-actions">
         <button type="button"
                 class="btn btn-primary btn-lg"
-                id="generate-btn">Generate another</button>
+                id="generate-btn">Random avatar</button>
         <a href="https://api.genavatar.me/"
            target="_blank"
            rel="noopener"
            class="btn btn-outline btn-lg">Open API</a>
       </div>
+      <p class="try-status"
+         id="try-status"
+         role="status"
+         aria-live="polite"></p>
     </section>
   </main>
 
@@ -380,6 +475,8 @@
        class="footer-logo">genavatar.me</a>
     <span class="footer-sep">·</span>
     <a href="#api">API</a>
+    <span class="footer-sep">·</span>
+    <a href="#reference">Reference</a>
     <span class="footer-sep">·</span>
     <a href="#faq">FAQ</a>
     <span class="footer-sep">·</span>
@@ -391,13 +488,18 @@
   <script>
     (function () {
       var copyBtn = document.getElementById('copy-url');
+      var copyStatus = document.getElementById('copy-status');
       if (copyBtn) {
         var label = copyBtn.textContent;
         copyBtn.addEventListener('click', function () {
           var text = copyBtn.getAttribute('data-copy') || '';
           function done() {
             copyBtn.textContent = 'Copied';
-            window.setTimeout(function () { copyBtn.textContent = label; }, 1500);
+            if (copyStatus) copyStatus.textContent = 'Copied to clipboard.';
+            window.setTimeout(function () {
+              copyBtn.textContent = label;
+              if (copyStatus) copyStatus.textContent = '';
+            }, 1800);
           }
           if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(text).then(done).catch(function () {
@@ -409,12 +511,52 @@
         });
       }
 
+      var form = document.getElementById('try-form');
+      var input = document.getElementById('try-id');
       var genBtn = document.getElementById('generate-btn');
       var avatar = document.getElementById('cta-avatar');
-      if (genBtn && avatar) {
-        genBtn.addEventListener('click', function () {
-          avatar.src = 'https://api.genavatar.me/?_=' + Date.now();
+      var urlCode = document.getElementById('cta-url');
+      var tryStatus = document.getElementById('try-status');
+
+      function showAvatar(url, displayUrl, message, alt) {
+        if (avatar) {
+          avatar.src = url;
+          avatar.alt = alt;
+        }
+        if (urlCode) urlCode.textContent = displayUrl;
+        if (tryStatus) tryStatus.textContent = message;
+      }
+
+      function showRandom() {
+        var displayUrl = 'https://api.genavatar.me/?size=192';
+        showAvatar(
+          displayUrl + '&_=' + Date.now(),
+          displayUrl,
+          'Random avatar generated.',
+          'Example random PNG avatar from the genavatar.me API'
+        );
+      }
+
+      function showPreview() {
+        if (!input) return;
+        var id = Array.from(input.value.trim()).slice(0, 36).join('');
+        input.value = id;
+        if (!id) {
+          showRandom();
+          return;
+        }
+        var displayUrl = 'https://api.genavatar.me/' + encodeURIComponent(id) + '?size=192';
+        showAvatar(displayUrl, displayUrl, 'Showing avatar for ' + id + '.', 'Avatar for ' + id);
+      }
+
+      if (form) {
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+          showPreview();
         });
+      }
+      if (genBtn) {
+        genBtn.addEventListener('click', showRandom);
       }
     })();
   </script>

@@ -64,10 +64,13 @@ Fields written:
 - `doubles[1]`: handler duration in milliseconds
 - `doubles[2]`: response byte length
 - `doubles[3]`: `1` on cache hit, `0` on cache miss
+- `doubles[4]`: requested output size in pixels
 
 ## Caching
 
-Rendered PNGs are cached in `caches.default` under `<origin>/__cache/v2/<face.key>.png`. The cache is local to each Cloudflare edge location. Requests still execute the Worker so analytics can be recorded, while cache hits skip WASM composition.
+Avatar URLs accept `?size=` from 16 to 400. The default is 400, and invalid values fall back to 400.
+
+Rendered PNGs are cached in `caches.default` under `<origin>/__cache/v2/<face.key>-<size>.png`. The cache is local to each Cloudflare edge location. Requests still execute the Worker so analytics can be recorded, while cache hits skip WASM composition.
 
 ## CI / deployment
 
