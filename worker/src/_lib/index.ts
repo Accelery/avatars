@@ -1,7 +1,7 @@
 import { PhotonImage, watermark } from "@cf-wasm/photon/workerd";
 
 // ── Asset imports (ArrayBuffer via Wrangler Data rule) ────────────────────────
-// Order matches Node fs.readdirSync lexicographic output to preserve pick() parity.
+// Array order is part of each avatar's identity. Append assets; never reorder.
 
 import eyes1 from "./_img/eyes/eyes1.png";
 import eyes10 from "./_img/eyes/eyes10.png";
@@ -32,33 +32,47 @@ import mouth7 from "./_img/mouth/mouth7.png";
 import mouth9 from "./_img/mouth/mouth9.png";
 
 export interface Face {
-  color: string;
-  eyes: ArrayBuffer;
-  nose: ArrayBuffer;
-  mouth: ArrayBuffer;
+  readonly key: string;
+  readonly color: string;
+  readonly eyes: ArrayBuffer;
+  readonly nose: ArrayBuffer;
+  readonly mouth: ArrayBuffer;
 }
 
 // ── Hashing ───────────────────────────────────────────────────────────────────
 
-// Safe for non-ASCII because callers pass encodeURIComponent'd strings (ASCII only).
-const charCodes = (s: string): number[] =>
-  Array.from(s, (c) => c.charCodeAt(0) || 0);
+const FNV_OFFSET_BASIS = 0x811c9dc5;
+const FNV_PRIME = 0x01000193;
+const textEncoder = new TextEncoder();
 
-const sumReduce = (a: number[]): number => a.reduce((acc, n) => acc + n, 0);
-const sumDiffReduce = (a: number[]): number =>
-  a.reduce((acc, n, i) => (i % 2 === 0 ? acc + n : acc - n), 0);
+/**
+ * Compute a 32-bit unsigned FNV-1a hash with a Murmur3 finalizer over UTF-8 bytes.
+ * Domain-salted so each facial feature is hashed independently.
+ */
+const hashWithSalt = (salt: string, input: string): number => {
+  let hash = FNV_OFFSET_BASIS;
+  const bytes = textEncoder.encode(`${salt}\0${input}`);
+  for (let i = 0; i < bytes.length; i++) {
+    hash ^= bytes[i];
+    hash = Math.imul(hash, FNV_PRIME);
+  }
 
-/** Pick an item from `values` deterministically based on `key`. */
-const pick =
-  <T>(values: T[], reducer: (a: number[]) => number) =>
-  (key: string): T => {
-    const codes = charCodes(key);
-    return values[Math.abs((reducer(codes) + codes.length) % values.length)];
-  };
+  hash ^= hash >>> 16;
+  hash = Math.imul(hash, 0x85ebca6b);
+  hash ^= hash >>> 13;
+  hash = Math.imul(hash, 0xc2b2ae35);
+  hash ^= hash >>> 16;
+
+  return hash >>> 0;
+};
+
+/** Pick an array index deterministically based on `salt` and `key`. */
+const pickIndex = (length: number, salt: string, key: string): number =>
+  hashWithSalt(salt, key) % length;
 
 // ── Assets ────────────────────────────────────────────────────────────────────
 
-const colors = [
+const colors: readonly string[] = [
   "#81bef1",
   "#ad8bf2",
   "#bff288",
@@ -70,7 +84,7 @@ const colors = [
   "#f6be5d",
 ];
 
-const eyeAssets: ArrayBuffer[] = [
+const eyeAssets: readonly ArrayBuffer[] = [
   eyes1,
   eyes10,
   eyes2,
@@ -81,7 +95,7 @@ const eyeAssets: ArrayBuffer[] = [
   eyes7,
   eyes9,
 ];
-const noseAssets: ArrayBuffer[] = [
+const noseAssets: readonly ArrayBuffer[] = [
   nose2,
   nose3,
   nose4,
@@ -91,7 +105,7 @@ const noseAssets: ArrayBuffer[] = [
   nose8,
   nose9,
 ];
-const mouthAssets: ArrayBuffer[] = [
+const mouthAssets: readonly ArrayBuffer[] = [
   mouth1,
   mouth10,
   mouth11,
@@ -102,19 +116,22 @@ const mouthAssets: ArrayBuffer[] = [
   mouth9,
 ];
 
-const pickColor = pick(colors, sumReduce);
-const pickEyes = pick(eyeAssets, sumReduce);
-const pickNose = pick(noseAssets, sumReduce);
-const pickMouth = pick(mouthAssets, sumDiffReduce);
-
 // ── Public API ────────────────────────────────────────────────────────────────
 
-export const createFace = (id: string): Face => ({
-  color: pickColor(id),
-  eyes: pickEyes(id),
-  nose: pickNose(id),
-  mouth: pickMouth(id),
-});
+export const createFace = (id: string): Face => {
+  const colorIdx = pickIndex(colors.length, "color", id);
+  const eyesIdx = pickIndex(eyeAssets.length, "eyes", id);
+  const noseIdx = pickIndex(noseAssets.length, "nose", id);
+  const mouthIdx = pickIndex(mouthAssets.length, "mouth", id);
+
+  return {
+    key: `c${colorIdx}-e${eyesIdx}-n${noseIdx}-m${mouthIdx}`,
+    color: colors[colorIdx],
+    eyes: eyeAssets[eyesIdx],
+    nose: noseAssets[noseIdx],
+    mouth: mouthAssets[mouthIdx],
+  };
+};
 
 /** Parse a CSS hex color string like "#81bef1" into [r, g, b] bytes. */
 const hexToRgb = (hex: string): [number, number, number] => {
@@ -132,32 +149,34 @@ const IMAGE_HEIGHT = 400;
 export const combine = (face: Face): Uint8Array => {
   const [r, g, b] = hexToRgb(face.color);
 
-  // Build solid-color background (RGBA, fully opaque)
-  const bgPixels = new Uint8Array(IMAGE_WIDTH * IMAGE_HEIGHT * 4);
-  for (let i = 0; i < bgPixels.length; i += 4) {
-    bgPixels[i] = r;
-    bgPixels[i + 1] = g;
-    bgPixels[i + 2] = b;
-    bgPixels[i + 3] = 255;
+  // Pack one RGBA pixel using native endianness, then fill the background.
+  const pixel = new Uint32Array(Uint8Array.of(r, g, b, 255).buffer)[0];
+  const bgPixels = new Uint32Array(IMAGE_WIDTH * IMAGE_HEIGHT).fill(pixel);
+  const bg = new PhotonImage(
+    new Uint8Array(bgPixels.buffer),
+    IMAGE_WIDTH,
+    IMAGE_HEIGHT,
+  );
+  let eyes: PhotonImage | undefined;
+  let mouth: PhotonImage | undefined;
+  let nose: PhotonImage | undefined;
+
+  try {
+    eyes = PhotonImage.new_from_byteslice(new Uint8Array(face.eyes));
+    mouth = PhotonImage.new_from_byteslice(new Uint8Array(face.mouth));
+    nose = PhotonImage.new_from_byteslice(new Uint8Array(face.nose));
+
+    // watermark() alpha-composites overlay onto base in-place at (x=0, y=0)
+    // x/y are u32 in the WASM ABI, which wasm-bindgen exposes as bigint
+    watermark(bg, eyes, BigInt(0), BigInt(0));
+    watermark(bg, mouth, BigInt(0), BigInt(0));
+    watermark(bg, nose, BigInt(0), BigInt(0));
+
+    return bg.get_bytes();
+  } finally {
+    bg.free();
+    eyes?.free();
+    mouth?.free();
+    nose?.free();
   }
-
-  const bg = new PhotonImage(bgPixels, IMAGE_WIDTH, IMAGE_HEIGHT);
-  const eyes = PhotonImage.new_from_byteslice(new Uint8Array(face.eyes));
-  const mouth = PhotonImage.new_from_byteslice(new Uint8Array(face.mouth));
-  const nose = PhotonImage.new_from_byteslice(new Uint8Array(face.nose));
-
-  // watermark() alpha-composites overlay onto base in-place at (x=0, y=0)
-  // x/y are u32 in the WASM ABI, which wasm-bindgen exposes as bigint
-  watermark(bg, eyes, BigInt(0), BigInt(0));
-  watermark(bg, mouth, BigInt(0), BigInt(0));
-  watermark(bg, nose, BigInt(0), BigInt(0));
-
-  const png = bg.get_bytes();
-
-  bg.free();
-  eyes.free();
-  mouth.free();
-  nose.free();
-
-  return png;
 };

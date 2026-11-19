@@ -27,11 +27,15 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version-file: ".nvmrc"
           cache: "pnpm"
           cache-dependency-path: worker/pnpm-lock.yaml
 
       - run: pnpm install --frozen-lockfile
+        working-directory: worker
+
+      - name: Typecheck
+        run: pnpm run typecheck
         working-directory: worker
 
       - name: Deploy to Cloudflare Workers

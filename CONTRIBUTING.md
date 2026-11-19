@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- [Node.js 22](https://nodejs.org/) (use [nvm](https://github.com/nvm-sh/nvm): `nvm use` inside `worker/`)
+- [Node.js 26 LTS](https://nodejs.org/) (use [nvm](https://github.com/nvm-sh/nvm): `nvm use` from the repository root)
 - [pnpm](https://pnpm.io/installation)
 - [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/): installed automatically as a dev dependency
 
@@ -23,47 +23,58 @@ pnpm run dev
 
 This starts a local Wrangler dev server. The worker is available at `http://localhost:8787/<your-id>`.
 
-No Cloudflare account is needed for local dev — Wrangler runs the worker entirely on your machine.
+No Cloudflare account is needed for local dev, because Wrangler runs the worker entirely on your machine.
 
-## Building
+To preview the landing page, serve `public/` with any static file server. There is no build step.
 
-Wrangler compiles and bundles the TypeScript source automatically on `dev` and `deploy`. There is no separate build step.
+## Checks
+
+Wrangler compiles and bundles the TypeScript source automatically on `dev` and `deploy`. Run the TypeScript check before opening a pull request:
+
+```bash
+cd worker
+pnpm run typecheck
+```
+
+There is no automated test suite or linter.
 
 ## Changing or adding avatar assets
 
-The image assets in `worker/src/_lib/_img/` are the building blocks of every avatar. A few rules:
+The image assets in `worker/src/_lib/_img/` are the building blocks of every avatar. The arrays in `worker/src/_lib/index.ts` define the selection order, not the filenames.
 
-- **Do not fill numbering gaps.** The existing filenames have gaps (e.g. `eyes8.png` is missing). The hash selects assets by array index, not filename. Inserting a file where a gap exists shifts every subsequent index and silently changes the avatar produced for every existing ID, breaking the determinism guarantee.
-- **Append new assets only.** Adding a file at the end of the sorted list is safe — existing IDs are unaffected.
-- **Match dimensions.** All assets are 400×400 PNG. New assets must be the same size.
-- If you change anything that affects which avatar is produced for an existing ID, that is a **breaking change** and needs to be called out explicitly.
+- **Do not reorder or insert into existing array positions.** That shifts later indexes and changes the avatar for existing IDs.
+- **Append new assets.** Import the new file and add it to the end of the relevant array. Filename numbering gaps are historical and do not affect selection.
+- **Match dimensions.** All assets are 400x400 PNGs. New assets must be the same size.
+- Any change that affects which avatar an existing ID produces is a **breaking change** and must be called out in the pull request.
 
 ## CI / deployment secrets
 
 | Secret | Used by |
 |---|---|
-| `CLOUDFLARE_API_TOKEN` | `worker-deploy.yml` — deploys the worker |
-| `FIREBASE_SERVICE_ACCOUNT_AVATARS_333CB` | `firebase-hosting.yml` — deploys the landing page |
+| `CLOUDFLARE_API_TOKEN` | `worker-deploy.yml` - deploys the worker |
+
+Cloudflare Pages deploys `public/` from this repository. It needs no GitHub Actions secret.
 
 ## Pull requests
 
-- TypeScript must compile cleanly (Wrangler will error on type issues during `dev`/`deploy`)
-- Keep PRs focused — one concern per PR
-- Describe *what* changed and *why* in the PR body
+- Run `pnpm run typecheck` inside `worker/` and keep it clean
+- Keep PRs focused on one concern
+- Describe what changed and why in the PR body
 
 ## Project structure
 
 ```
-public/          # Landing page — plain HTML/CSS, no build step
-worker/          # Cloudflare Worker — TypeScript, workerd runtime
+public/          # Landing page: static HTML, CSS, JS, no build step
+  theme.js       # Light/dark theme toggle
+worker/          # Avatar API: TypeScript, workerd runtime
   src/
-    index.ts           # Fetch handler
+    index.ts           # Fetch handler, caching, analytics
     _lib/
-      index.ts         # createFace() + combine()
+      index.ts         # createFace() and combine()
+      blocked.ts       # Scanner path blocklist
       _img/            # PNG assets: eyes/ nose/ mouth/
   wrangler.jsonc       # Wrangler config
 .github/
   workflows/
-    worker-deploy.yml    # Deploys worker on push to main
-    firebase-hosting.yml # Deploys landing page on push to main
+    worker-deploy.yml  # Deploys worker on push to main
 ```

@@ -3,7 +3,3 @@ lib/
 
 # Node.js dependency directory
 node_modules/
-
-# Firebase 
-.firebase/
-firebase-debug.log
